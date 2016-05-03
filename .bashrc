@@ -116,5 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
 export EDITOR=emacs
 export PS1='\[\033k\033\\\][\u@\h \W]\$ '

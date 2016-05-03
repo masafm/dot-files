@@ -25,6 +25,7 @@ case $- in
     *i*) screen -dR ;;
 esac
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
+if [ -f /usr/local/bin/brew ] && 
+    [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
