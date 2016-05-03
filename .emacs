@@ -2,6 +2,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/ruby")
 (add-to-list 'load-path "~/.emacs.d/elisp/popup-el")
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete")
+(add-to-list 'load-path "~/.emacs.d/elisp/elpa/packages/cl-lib")
 
 ; gtags
 (load "/usr/local/share/gtags/gtags.el")
