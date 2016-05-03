@@ -1,3 +1,8 @@
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(add-to-list 'load-path "~/.emacs.d/elisp/ruby")
+(add-to-list 'load-path "~/.emacs.d/elisp/popup-el")
+(add-to-list 'load-path "~/.emacs.d/elisp/auto-complete")
+
 ; gtags
 (load "/usr/local/share/gtags/gtags.el")
 (autoload 'gtags-mode "gtags" "" t)
@@ -18,6 +23,29 @@
 (global-set-key "\M-f" 'gtags-find-file)    ;ファイルにジャンプ
 (global-set-key "\M-," 'gtags-pop-stack)   ;前のバッファに戻る
 (global-set-key "\M-*" 'gtags-pop-stack)   ;前のバッファに戻る
+
+;ruby
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(setq auto-mode-alist
+      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
+				     interpreter-mode-alist))
+;; set to load inf-ruby and set inf-ruby key definition in ruby-mode.
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (inf-ruby-keys)
+	     ))
+
+; auto-complete
+(load "auto-complete.el")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete/dict")
+(require 'auto-complete-config)
+(ac-config-default)
 
 ; saveplace
 (load "saveplace")
