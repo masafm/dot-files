@@ -19,6 +19,7 @@
 (global-set-key "\M-," 'gtags-pop-stack)   ;前のバッファに戻る
 (global-set-key "\M-*" 'gtags-pop-stack)   ;前のバッファに戻る
 
+; saveplace
 (load "saveplace")
 (setq-default save-place t)
 (setq save-place-file "~/.emacs.d/saved-places")
