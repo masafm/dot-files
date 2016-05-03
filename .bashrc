@@ -116,6 +116,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# OSX bash_completion
+if [ -f /usr/local/bin/brew ] && 
+    [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
         . /etc/bashrc
