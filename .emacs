@@ -74,6 +74,6 @@
           '(lambda ()
             (inf-ruby-keys)))
 (require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)));有効にするとエラーになる
 (setq ruby-indent-level 1)
 (setq ruby-indent-tabs-mode nil)
