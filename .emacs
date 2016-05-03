@@ -26,6 +26,7 @@
 (global-set-key "\M-*" 'gtags-pop-stack)   ;前のバッファに戻る
 
 ;ruby
+(setq ruby-insert-encoding-magic-comment nil);マジックコメントいらない
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (setq auto-mode-alist
