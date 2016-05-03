@@ -1,9 +1,0 @@
-[submodule ".emacs.d/elisp/auto-complete"]
-	path = .emacs.d/elisp/auto-complete
-	url = git@github.com:auto-complete/auto-complete.git
-[submodule ".emacs.d/elisp/popup-el"]
-	path = .emacs.d/elisp/popup-el
-	url = git@github.com:auto-complete/popup-el.git
-[submodule ".emacs.d/elisp/auto-complete-c-headers"]
-	path = .emacs.d/elisp/auto-complete-c-headers
-	url = git@github.com:mooz/auto-complete-c-headers.git
