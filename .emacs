@@ -1,5 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/")
-(add-to-list 'load-path "~/.emacs.d/elisp/popup/")
+(add-to-list 'load-path "~/.emacs.d/elisp/ruby/")
+(add-to-list 'load-path "~/.emacs.d/elisp/popup-el/")
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete/")
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-complete-c-headers/")
 
@@ -58,3 +59,21 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(setq auto-mode-alist
+      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
+                                     interpreter-mode-alist))
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+            (inf-ruby-keys)))
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(setq ruby-indent-level 1)
+(setq ruby-indent-tabs-mode nil)
