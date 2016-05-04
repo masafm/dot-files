@@ -1,3 +1,5 @@
 [user]
 	name = Masafumi Kashiwagi
 	email = info@masaf.me
+[push]
+	default = simple
