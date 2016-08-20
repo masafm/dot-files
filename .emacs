@@ -5,7 +5,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/elpa/packages/cl-lib")
 
 ; gtags
-(load "/usr/local/share/gtags/gtags.el")
+;(load "/usr/local/share/gtags/gtags.el")
 (autoload 'gtags-mode "gtags" "" t)
 (setq gtags-suggested-key-mapping t)
 (add-hook 'c-mode-hook

@@ -116,16 +116,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# OSX bash_completion
-if [ -f /usr/local/bin/brew ] && 
-    [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
-
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
-
 export EDITOR=emacs
-export PS1='\[\033k\033\\\][\u@\h \W]\$ '
+export PS1='\[\033k\033\\\]\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
