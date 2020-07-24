@@ -1,7 +1,9 @@
 escape ^zz
-defscrollback 1000
 autodetach on
 hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
 shelltitle "$ |bash"
+deflogin off
+defflow off
+defscrollback 100000
 screen 0
 screen 1
