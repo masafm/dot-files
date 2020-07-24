@@ -1,0 +1,11 @@
+case "$TERM" in
+    screen*)
+	if [[ -z "$STY" ]]; then
+	    # if the shell is on the remote server, display hostname
+	    PS1=$PS1'\[\033k[\h]\033\134\]'
+	else
+	    # otherwise, display command name or directory name
+	    PS1=$PS1'\[\033k\033\134\033k\W\033\134\]'
+	fi
+	;;
+esac
