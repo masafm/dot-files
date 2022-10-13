@@ -1,0 +1,10 @@
+escape ^zz
+autodetach on
+hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
+shelltitle "$ |bash"
+deflogin off
+defflow off
+defscrollback 100000
+termcapinfo xterm* ti@:te@
+screen 0
+screen 1
