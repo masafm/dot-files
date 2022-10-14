@@ -6,7 +6,7 @@ export SAVEHIST=100000
 ## Nutanix
 if [ "$(hostname)" = "C02Y41YCJHD3" ];then
    # Nutanix related settings
-   source ~/ntnx-tools/zprofile.sh
+   source ~/ntnx-tools/profile-ntnx.sh
 fi
 
 ## Brew
@@ -120,13 +120,6 @@ function powerline_precmd() {
 /Volumes/GoogleDrive/マイドライブ/cases/=\~c,\
 \~/cases/=~c\
 )"
-
-    # Uncomment the following line to automatically clear errors after showing
-    # them once. This not only clears the error for powerline-go, but also for
-    # everything else you run in that shell. Don't enable this if you're not
-    # sure this is what you want.
-
-    #set "?"
 }
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
