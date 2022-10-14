@@ -71,7 +71,7 @@ alias c='cd ~/cases'
 alias d='cd ~/downloads'
 alias e='emacs -nw'
 alias f='open .'
-alias gc='git add --all;git commit -m update;git push'
+alias gc='git add --all && git commit -m update && git push'
 alias s='cd ~/src'
 alias s2='cd ~/src2'
 alias ..='cd ..'
@@ -85,13 +85,13 @@ alias krillin='emacs /ssh:krillin:~'
 alias piccolo='emacs /ssh:piccolo:~'
 alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
-alias -s {txt,log,h}=emacs
+alias -s {txt,log,out}=emacs
+alias -s {png,jpg,bmp,xls,xlsx,doc,docx,ppt,pptx}=open
 alias -s java=javac
 alias -s class=java
 alias -s go=go
 alias -s rb=ruby
 alias -s py=python
-alias -s {png,jpg,bmp,xls,xlsx,doc,docx,ppt,pptx}=open
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
