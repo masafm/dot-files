@@ -87,11 +87,6 @@ alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
 alias -s {txt,log,out}=emacs
 alias -s {png,jpg,bmp,xls,xlsx,doc,docx,ppt,pptx}=open
-alias -s java=javac
-alias -s class=java
-alias -s go=go
-alias -s rb=ruby
-alias -s py=python
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
