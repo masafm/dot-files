@@ -3,6 +3,12 @@ if [ "$(hostname)" = "C02Y41YCJHD3" ];then
    source ~/ntnx-tools/zprofile.sh
 fi
 
+if [ -d "/opt/homebrew/bin" ];then
+   # Set PATH, MANPATH, etc., for Homebrew.
+   exportPATH="/opt/homebrew/bin:$PATH"
+   eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 export PATH=$PATH:~/bin
 export HISTSIZE=10000
 export SAVEHIST=100000
