@@ -77,6 +77,13 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias bulma='emacs /ssh:bulma:~'
+alias gohan='emacs /ssh:gohan:~'
+alias goku='emacs /ssh:goku:~'
+alias krillin='emacs /ssh:krillin:~'
+alias piccolo='emacs /ssh:piccolo:~'
+alias vegeta='emacs /ssh:vegeta:~'
+alias yamcha='emacs /ssh:yamcha:~'
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
