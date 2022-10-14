@@ -86,7 +86,6 @@ alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
 alias -s txt=emacs
 alias -s log=emacs
-alias -s c=bat
 alias -s h=emacs
 alias -s java=javac
 alias -s class=java
