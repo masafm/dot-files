@@ -84,6 +84,16 @@ alias krillin='emacs /ssh:krillin:~'
 alias piccolo='emacs /ssh:piccolo:~'
 alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
+alias -s txt=emacs
+alias -s log=emacs
+alias -s c=bat
+alias -s h=emacs
+alias -s java=javac
+alias -s class=java
+alias -s go=go
+alias -s rb=ruby
+alias -s py=python
+alias -s {png,jpg,bmp,xls,xlsx,doc,docx,ppt,pptx}=open
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
@@ -97,7 +107,21 @@ function ssh() {
 ## Powerline
 GOPATH=/usr/local
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root -path-aliases \~/src/ahv/=\~ahv,\~/src/aos/=\~aos,\~/src/files/=\~files,\~/src/foundation/=\~foun,\~/src/lcm/=\~lcm,\~/src/move/=\~move,\~/src/ncc/=\~ncc,\~/src/pc/=\~pc,\~/downloads/=\~d,\~/Downloads/=\~d,\/Volumes\/NTNX\/downloads=\~d,/Volumes/GoogleDrive/マイドライブ/cases/=\~c,\~/cases/=~c)"
+    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root -path-aliases \
+\~/src/ahv/=\~ahv,\
+\~/src/aos/=\~aos,\
+\~/src/files/=\~files,\
+\~/src/foundation/=\~foun,\
+\~/src/lcm/=\~lcm,\
+\~/src/move/=\~move,\
+\~/src/ncc/=\~ncc,\
+\~/src/pc/=\~pc,\
+\~/downloads/=\~d,\
+\~/Downloads/=\~d,\
+/Volumes/NTNX/downloads=\~d,\
+/Volumes/GoogleDrive/マイドライブ/cases/=\~c,\
+\~/cases/=~c\
+)"
 
     # Uncomment the following line to automatically clear errors after showing
     # them once. This not only clears the error for powerline-go, but also for
@@ -106,7 +130,6 @@ function powerline_precmd() {
 
     #set "?"
 }
-
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
     if [ "$s" = "powerline_precmd" ]; then
@@ -115,7 +138,6 @@ function install_powerline_precmd() {
   done
   precmd_functions+=(powerline_precmd)
 }
-
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
     install_powerline_precmd
 fi
