@@ -86,6 +86,7 @@ alias krillin='emacs /ssh:krillin:~'
 alias piccolo='emacs /ssh:piccolo:~'
 alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
+alias diamond='ssh diamond'
 alias -s {txt,log,out}=emacs
 alias -s {png,jpg,bmp,xls,xlsx,doc,docx,ppt,pptx}=open
 function ssh() {
