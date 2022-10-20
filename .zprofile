@@ -43,6 +43,7 @@ function chpwd() {
     echo -en "\033]2; "$(pwd | perl -pe 's#/Users/mkashi#~#;s#/[^/]+$##')" \007"
     # Set teminal tab name
     echo -en "\033]1; "$(pwd | perl -pe 's#/Users/mkashi#~#;s#.*?/(\d+ \| [^/]+).*#$1#')" \007"
+    ls
 }
 chpwd
 # Completion without ls
@@ -103,7 +104,7 @@ alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
 alias diamond='ssh diamond'
 alias -s {txt,log,out}=emacs
-alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF}=open
+alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
