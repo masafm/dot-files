@@ -43,17 +43,17 @@ function chpwd() {
     echo -en "\033]2; "$(pwd | perl -pe 's#/Users/mkashi#~#;s#/[^/]+$##')" \007"
     # Set teminal tab name
     echo -en "\033]1; "$(pwd | perl -pe 's#/Users/mkashi#~#;s#.*?/(\d+ \| [^/]+).*#$1#')" \007"
-    ls
+    ls -FG
 }
 chpwd
 # Completion without ls
 function expand-or-complete-or-list-files() {
     if [[ $#BUFFER == 0 ]]; then
-        BUFFER="ls ./"
-        CURSOR=3
+        BUFFER="ls -FG ./"
+        CURSOR=7
         zle list-choices
-        zle backward-kill-word
-	CURSOR=2
+        zle backward-kill-line
+	CURSOR=6
     else
         zle expand-or-complete
     fi
