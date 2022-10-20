@@ -33,6 +33,11 @@ setopt correct
 setopt share_history
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
+# Coloring
+autoload -Uz colors
+colors
+# Case-insensitive for completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 function chpwd() {
     # Set terminal window name
     echo -en "\033]2; "$(pwd | perl -pe 's#/Users/mkashi#~#;s#/[^/]+$##')" \007"
@@ -98,7 +103,7 @@ alias vegeta='emacs /ssh:vegeta:~'
 alias yamcha='emacs /ssh:yamcha:~'
 alias diamond='ssh diamond'
 alias -s {txt,log,out}=emacs
-alias -s {png,jpg,bmp,xls,xlsx,doc,docx,ppt,pptx}=open
+alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF}=open
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
