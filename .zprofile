@@ -6,7 +6,7 @@ export SAVEHIST=100000
 ## Nutanix
 if [ "$(hostname)" = "C02Y41YCJHD3" ];then
    # Nutanix related settings
-   source ~/ntnx-tools/profile-ntnx.sh
+   source ~/masa-tools/profile-ntnx.sh
 fi
 
 ## Brew
@@ -82,7 +82,8 @@ alias f='open .'
 alias files='cd ~/src/files'
 alias foundation='cd ~/src/foundation'
 alias gb='git branch -a'
-alias gc='git add --all && git commit -m update && git push'
+alias gcommit='git add --all && git commit -m update && git push'
+alias gc='git checkout'
 alias gd='git diff'
 alias gs='git status'
 alias lcm='cd ~/src/lcm'
