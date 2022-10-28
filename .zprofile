@@ -6,7 +6,7 @@ export SAVEHIST=100000
 ## Nutanix
 if [ "$(hostname)" = "C02Y41YCJHD3" ];then
    # Nutanix related settings
-   source ~/masa-tools/profile-ntnx.sh
+   source ~/sre/masa-tools/profile-ntnx.sh
 fi
 
 ## Brew
@@ -128,3 +128,20 @@ function install_powerline_precmd() {
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
     install_powerline_precmd
 fi
+
+function extract-all() {
+    find . \( -name '*.zip' -o -name '*.tar.gz' -o -name '*.tgz' \) -maxdepth 1 -type f | while read f
+    do
+	echo Extracting $f
+	if [[ "$f" =~ \.zip$ ]]
+	then
+	    unzip "$f" >/dev/null && rm -f "$f" &
+	elif [[ "$f" =~ \.(tar\.gz|tgz)$ ]]
+	then
+	    tar xf "$f" >/dev/null && rm -f "$f" &
+	else
+	    open "$f" && rm -f "$f" &
+	fi
+    done
+    wait
+}
