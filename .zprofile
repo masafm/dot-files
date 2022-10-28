@@ -136,11 +136,8 @@ function extract-all() {
 	if [[ "$f" =~ \.zip$ ]]
 	then
 	    unzip "$f" >/dev/null && rm -f "$f" &
-	elif [[ "$f" =~ \.(tar\.gz|tgz)$ ]]
-	then
-	    tar xf "$f" >/dev/null && rm -f "$f" &
 	else
-	    open "$f" && rm -f "$f" &
+	    tar xf "$f" >/dev/null && rm -f "$f" &
 	fi
     done
     wait
