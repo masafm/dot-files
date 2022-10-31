@@ -144,9 +144,9 @@ function extract-all() {
 	echo Extracting $f
 	if [[ "$f" =~ \.zip$ ]]
 	then
-	    unzip "$f" >/dev/null && rm -f "$f" &
+	    sh -c "unzip '$f' >/dev/null && rm -f '$f'" &
 	else
-	    tar xf "$f" >/dev/null && rm -f "$f" &
+	    sh -c "tar xf '$f' >/dev/null && rm -f '$f'" &
 	fi
     done
     wait
