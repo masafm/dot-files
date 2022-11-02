@@ -46,9 +46,9 @@ function chpwd() {
     echo -en "\033]1; "$(pwd | perl -pe 's#'$HOME'#~#;s#.*?/(\d+ \| [^/]+).*#$1#')" \007"
     if [ -x $(brew --prefix)/bin/gls ]
     then
-	gls --color=auto
+	gls -ltr --color=auto
     else
-	ls -FG
+	ls -ltrFG
     fi
 }
 chpwd
@@ -99,6 +99,7 @@ alias gclone='git clone'
 alias gd='git diff'
 alias gp='git pull --all'
 alias gs='git status'
+alias h='cd ~'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
