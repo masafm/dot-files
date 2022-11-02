@@ -24,6 +24,10 @@ if [ -f $(brew --prefix)/bin/pyenv ]; then
     eval "$(pyenv init --path)"
 fi
 
+# Coloring
+if [ -x $(brew --prefix)/bin/gdircolors ]; then
+    eval `gdircolors ~/.colorrc`
+fi
 ## zsh customize
 # Treat / as word separator
 export WORDCHARS=${WORDCHARS/\/}
@@ -33,9 +37,6 @@ setopt correct
 setopt share_history
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
-# Coloring
-autoload -Uz colors
-colors
 # Case-insensitive for completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 function chpwd() {
@@ -43,17 +44,22 @@ function chpwd() {
     echo -en "\033]2; "$(pwd | perl -pe 's#'$HOME'#~#;s#/[^/]+$##')" \007"
     # Set teminal tab name
     echo -en "\033]1; "$(pwd | perl -pe 's#'$HOME'#~#;s#.*?/(\d+ \| [^/]+).*#$1#')" \007"
-    ls -FG
+    if [ -x $(brew --prefix)/bin/gls ]
+    then
+	gls --color=auto
+    else
+	ls -FG
+    fi
 }
 chpwd
 # Completion without ls
 function expand-or-complete-or-list-files() {
     if [[ $#BUFFER == 0 ]]; then
-        BUFFER="ls -FG ./"
-        CURSOR=7
+        BUFFER="ls ./"
+        CURSOR=3
         zle list-choices
         zle backward-kill-line
-	CURSOR=6
+	CURSOR=2
     else
         zle expand-or-complete
     fi
@@ -64,8 +70,15 @@ bindkey '^I' expand-or-complete-or-list-files
 bindkey '^U' backward-kill-line
 
 ## Alias
-alias ls='ls -FG'
-alias ll='ls -alFG'
+if [ -x $(brew --prefix)/bin/gls ];then
+    alias ls='gls --color=auto'
+    alias la='gls -la --color=auto'
+    alias ll='gls -l --color=auto'
+else
+    alias ls='ls -FG'
+    alias la='ls -alFG'
+    alias ll='ls -lFG'
+fi
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
@@ -142,11 +155,12 @@ function extract-all() {
     find . \( -name '*.zip' -o -name '*.tar.gz' -o -name '*.tgz' \) -maxdepth 1 -type f | while read f
     do
 	echo Extracting $f
+	dir=$(dirname "$f")
 	if [[ "$f" =~ \.zip$ ]]
 	then
-	    sh -c "unzip '$f' >/dev/null && rm -f '$f'" &
+	    sh -c "cd '$dir' && unzip '$f' >/dev/null && rm -f '$f'" &
 	else
-	    sh -c "tar xf '$f' >/dev/null && rm -f '$f'" &
+	    sh -c "cd '$dir' && tar xf '$f' >/dev/null && rm -f '$f'" &
 	fi
     done
     wait
