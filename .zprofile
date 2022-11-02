@@ -55,11 +55,11 @@ chpwd
 # Completion without ls
 function expand-or-complete-or-list-files() {
     if [[ $#BUFFER == 0 ]]; then
-        BUFFER="ls ./"
-        CURSOR=3
+        BUFFER="ls -t ./"
+        CURSOR=6
         zle list-choices
         zle backward-kill-line
-	CURSOR=2
+	CURSOR=5
     else
         zle expand-or-complete
     fi
@@ -153,15 +153,15 @@ if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
 fi
 
 function extract-all() {
-    find . \( -name '*.zip' -o -name '*.tar.gz' -o -name '*.tgz' \) -maxdepth 1 -type f | while read f
+    find . \( -name '*.zip' -o -name '*.tar.gz' -o -name '*.tgz' \) -maxdepth 2 -type f | while read f
     do
 	echo Extracting $f
 	dir=$(dirname "$f")
 	if [[ "$f" =~ \.zip$ ]]
 	then
-	    sh -c "cd '$dir' && unzip '$f' >/dev/null && rm -f '$f'" &
+	    sh -c "unzip -o '$f' -d '$dir' >/dev/null && rm -f '$f'" &
 	else
-	    sh -c "cd '$dir' && tar xf '$f' >/dev/null && rm -f '$f'" &
+	    sh -c "tar xf -C '$dir' '$f' >/dev/null && rm -f '$f'" &
 	fi
     done
     wait
