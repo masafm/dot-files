@@ -59,7 +59,7 @@ function expand-or-complete-or-list-files() {
         CURSOR=6
         zle list-choices
         zle backward-kill-line
-	CURSOR=5
+	CURSOR=2
     else
         zle expand-or-complete
     fi
