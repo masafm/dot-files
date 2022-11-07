@@ -162,7 +162,7 @@ function extract-all() {
 	then
 	    sh -c "unzip -o '$f' -d '$dir' >/dev/null && rm -f '$f'" &
 	else
-	    sh -c "tar xf -C '$dir' '$f' >/dev/null && rm -f '$f'" &
+	    sh -c "tar xf '$f' -C '$dir' >/dev/null && rm -f '$f'" &
 	fi
     done
     wait
