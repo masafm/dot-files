@@ -8,6 +8,11 @@ if [ "$(hostname)" = "C02Y41YCJHD3" ];then
    # Nutanix related settings
    source ~/sre/masa-tools/profile-ntnx.sh
 fi
+## Datadog
+if [ "$(hostname)" = "COMP-P7VR73TR7F" ];then
+   # Datadog related settings
+   source ~/DDrepos/masa-tools/profile-dd.sh
+fi
 
 ## Brew
 if [ -d "/opt/homebrew/bin" ];then
@@ -51,7 +56,7 @@ function chpwd() {
 	ls -ltrFG
     fi
 }
-chpwd
+#chpwd
 # Completion without ls
 function expand-or-complete-or-list-files() {
     if [[ $#BUFFER == 0 ]]; then
