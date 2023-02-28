@@ -118,7 +118,6 @@ function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
        /usr/bin/ssh $*
-       chpwd
     else
        /usr/bin/ssh
     fi
