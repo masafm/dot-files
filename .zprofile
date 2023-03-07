@@ -11,7 +11,7 @@ fi
 ## Datadog
 if [ "$(hostname)" = "COMP-P7VR73TR7F" ];then
    # Datadog related settings
-   source ~/DDrepos/masa-tools/profile-dd.sh
+   source ~/src/masa-tools/profile-dd.sh
 fi
 
 ## Brew
