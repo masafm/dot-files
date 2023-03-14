@@ -28,6 +28,9 @@ fi
 if [ -f $(brew --prefix)/bin/pyenv ]; then
     eval "$(pyenv init --path)"
 fi
+if [ -f $(brew --prefix)/bin/nodebrew ]; then
+    export PATH=$HOME/.nodebrew/current/bin:$PATH
+fi
 
 # Coloring
 if [ -x $(brew --prefix)/bin/gdircolors ]; then
@@ -84,6 +87,9 @@ else
     alias la='ls -alFG'
     alias ll='ls -lFG'
 fi
+if [ -x $(brew --prefix)/bin/gdate ];then
+    alias date='gdate'
+fi
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
@@ -131,7 +137,7 @@ else
     GOPATH=/usr/local
 fi
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root -path-aliases \
+    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root,terraform-workspace,aws,docker,docker-context,git,goenv -path-aliases \
 \~/src/ahv/=\~ahv,\
 \~/src/aos/=\~aos,\
 \~/src/files/=\~files,\
