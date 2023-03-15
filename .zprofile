@@ -45,6 +45,7 @@ setopt correct
 setopt share_history
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
+setopt interactivecomments
 # Case-insensitive for completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 function chpwd() {
