@@ -99,7 +99,8 @@ alias dot-files='cd ~/dot-files'
 alias .zprofile='emacs ~/.zprofile && . ~/.zprofile'
 alias .emacs='emacs ~/.emacs'
 alias .zshrc='emacs ~/.zshrc && . ~/.zshrc'
-alias c='cd ~/cases'
+alias cs='cd ~/cases'
+alias c='code .'
 alias d='cd ~/downloads'
 alias e='emacs -nw'
 alias ea='extract-all'
@@ -138,7 +139,7 @@ else
     GOPATH=/usr/local
 fi
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root,terraform-workspace,aws,docker,docker-context,git,goenv -path-aliases \
+    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root,terraform-workspace,aws,docker,git,goenv -path-aliases \
 \~/src/ahv/=\~ahv,\
 \~/src/aos/=\~aos,\
 \~/src/files/=\~files,\
