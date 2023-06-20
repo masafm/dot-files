@@ -28,6 +28,10 @@ fi
 if [ -f $(brew --prefix)/bin/pyenv ]; then
     eval "$(pyenv init --path)"
 fi
+if [ -d $(brew --prefix)/opt/openjdk/bin ]; then
+    export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
+fi
+
 if [ -f $(brew --prefix)/bin/nodebrew ]; then
     export PATH=$HOME/.nodebrew/current/bin:$PATH
 fi
@@ -70,7 +74,8 @@ function expand-or-complete-or-list-files() {
         zle backward-kill-line
 	CURSOR=2
     else
-        zle expand-or-complete
+	zle expand-or-complete
+        #zle expand-or-complete-or-list-hosts
     fi
 }
 zle -N expand-or-complete-or-list-files
@@ -122,6 +127,7 @@ alias .....='cd ../../../..'
 alias -s {txt,log,out}=emacs
 alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 alias -s {html,HTML}=elinks
+for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail +4);do alias $h="ssh $h";done
 function ssh() {
     if [ -n "$*" ];then
        echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
