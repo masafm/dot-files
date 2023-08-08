@@ -49,6 +49,7 @@ setopt correct
 setopt share_history
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
+setopt extended_history
 setopt interactivecomments
 # Case-insensitive for completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -111,6 +112,7 @@ alias d='cd ~/downloads'
 alias e='emacs -nw'
 alias ea='extract-all'
 alias f='open .'
+alias o='open'
 alias gb='git branch -a'
 alias gco='git checkout'
 alias gcm='git add --all && git commit -m update && git push'
@@ -119,6 +121,7 @@ alias gd='git diff'
 alias gp='git pull --all'
 alias gs='git status'
 alias h='cd ~'
+alias history='history -t "%F %T"'
 alias jq='jq -C'
 alias less='less -R'
 alias ..='cd ..'
@@ -136,6 +139,9 @@ function ssh() {
     else
        /usr/bin/ssh
     fi
+}
+function gssh() {
+    gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
 }
 
 ## Powerline
