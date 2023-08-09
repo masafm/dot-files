@@ -106,6 +106,7 @@ alias .zprofile='emacs ~/.zprofile && . ~/.zprofile'
 alias .emacs='emacs ~/.emacs'
 alias .zshrc='emacs ~/.zshrc && . ~/.zshrc'
 alias av='aws-vault exec sandbox-account-admin --'
+for c in aws kubectl helm eksctl;do alias ${c}-av="av $c";done
 alias cs='cd ~/cases'
 alias c='code .'
 alias d='cd ~/downloads'
