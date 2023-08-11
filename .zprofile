@@ -3,6 +3,8 @@ export PATH=$PATH:~/bin
 export HISTSIZE=100000
 export SAVEHIST=100000
 
+## Test
+
 ## Datadog
 if [ "$(hostname)" = "COMP-P7VR73TR7F" ];then
    # Datadog related settings
