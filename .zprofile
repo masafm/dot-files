@@ -3,11 +3,6 @@ export PATH=$PATH:~/bin
 export HISTSIZE=100000
 export SAVEHIST=100000
 
-## Nutanix
-if [ "$(hostname)" = "C02Y41YCJHD3" ];then
-   # Nutanix related settings
-   source ~/sre/masa-tools/profile-ntnx.sh
-fi
 ## Datadog
 if [ "$(hostname)" = "COMP-P7VR73TR7F" ];then
    # Datadog related settings
