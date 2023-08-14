@@ -101,7 +101,7 @@ alias .zprofile='emacs ~/.zprofile && . ~/.zprofile'
 alias .emacs='emacs ~/.emacs'
 alias .zshrc='emacs ~/.zshrc && . ~/.zshrc'
 alias av='aws-vault exec sandbox-account-admin --'
-for c in aws kubectl helm eksctl;do alias ${c}-av="av $c";done
+for c in aws sam eksctl;do alias $c="av $c";done
 alias cs='cd ~/cases'
 alias c='code .'
 alias d='cd ~/downloads'
@@ -119,7 +119,9 @@ alias gs='git status'
 alias h='cd ~'
 alias history='history -t "%F %T"'
 alias jq='jq -C'
+alias kube='kubectl'
 alias less='less -R'
+alias pubkey='op item get id_rsa --fields label="public key"'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -148,7 +150,7 @@ else
     GOPATH=/usr/local
 fi
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root,terraform-workspace,aws,docker,git,goenv -path-aliases \
+    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root,terraform-workspace,docker,git,goenv -path-aliases \
 \~/src/ahv/=\~ahv,\
 \~/src/aos/=\~aos,\
 \~/src/files/=\~files,\
