@@ -158,7 +158,7 @@ PATH_ALIASES=(
     '~/Downloads/=~d'
 )
 for d in $(find ~/src -type d -maxdepth 1 -mindepth 1);do
-    PATH_ALIASES+='~/src/'$(basename $d)'/=~'$(basename $d)
+    PATH_ALIASES+='~/src/'$(basename $d)'/=~s:'$(basename $d)
 done
 function powerline_precmd() {
     PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,aws,jobs,exit,root,terraform-workspace,docker,git,goenv -path-aliases ${(pj:,:)PATH_ALIASES})"
