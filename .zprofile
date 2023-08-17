@@ -19,6 +19,8 @@ if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
     autoload -Uz compinit
     compinit
+    # kubectl
+    [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 fi
 if [ -f $(brew --prefix)/bin/pyenv ]; then
     eval "$(pyenv init --path)"
@@ -100,7 +102,7 @@ alias dot-files='cd ~/dot-files'
 alias .zprofile='emacs ~/.zprofile && . ~/.zprofile'
 alias .emacs='emacs ~/.emacs'
 alias .zshrc='emacs ~/.zshrc && . ~/.zshrc'
-alias av='aws-vault exec sandbox-account-admin --'
+alias av='aws-vault exec sso-sandbox-account-admin --'
 for c in aws sam eksctl;do alias $c="av $c";done
 alias cs='cd ~/cases'
 alias c='code .'
@@ -122,6 +124,8 @@ alias jq='jq -C'
 alias kube='kubectl'
 alias less='less -R'
 alias pubkey='op item get id_rsa --fields label="public key"'
+alias src='cd ~/src'
+alias s='src'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -149,22 +153,15 @@ then
 else
     GOPATH=/usr/local
 fi
+PATH_ALIASES=(
+    '~/downloads/=~d'
+    '~/Downloads/=~d'
+)
+for d in $(find ~/src -type d -maxdepth 1 -mindepth 1);do
+    PATH_ALIASES+='~/src/'$(basename $d)'/=~'$(basename $d)
+done
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,jobs,exit,root,terraform-workspace,docker,git,goenv -path-aliases \
-\~/src/ahv/=\~ahv,\
-\~/src/aos/=\~aos,\
-\~/src/files/=\~files,\
-\~/src/foundation/=\~foun,\
-\~/src/lcm/=\~lcm,\
-\~/src/move/=\~move,\
-\~/src/ncc/=\~ncc,\
-\~/src/pc/=\~pc,\
-\~/downloads/=\~d,\
-\~/Downloads/=\~d,\
-/Volumes/NTNX/downloads=\~d,\
-/Volumes/GoogleDrive/マイドライブ/cases/=\~c,\
-\~/cases/=~c\
-)"
+    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules venv,ssh,cwd,perms,aws,jobs,exit,root,terraform-workspace,docker,git,goenv -path-aliases ${(pj:,:)PATH_ALIASES})"
 }
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
