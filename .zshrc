@@ -64,10 +64,6 @@ setopt interactivecomments
 # Case-insensitive for completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 function chpwd() {
-    # Set terminal window name
-    echo -en "\033]2; "$(pwd | perl -pe 's#'$HOME'#~#;s#/[^/]+$##')" \007"
-    # Set teminal tab name
-    echo -en "\033]1; "$(pwd | perl -pe 's#'$HOME'#~#;s#.*?/(\d+ \| [^/]+).*#$1#')" \007"
     if [ -x $(brew --prefix)/bin/gls ]
     then
 	gls -ltr --color=auto
