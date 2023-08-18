@@ -147,14 +147,6 @@ alias -s {txt,log,out}=emacs
 alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 alias -s {html,HTML}=elinks
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail +4);do alias $h="ssh $h";done
-function ssh() {
-    if [ -n "$*" ];then
-       echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
-       /usr/bin/ssh $*
-    else
-       /usr/bin/ssh
-    fi
-}
 function gssh() {
     gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
 }
