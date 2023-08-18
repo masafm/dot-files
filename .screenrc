@@ -1,10 +1,16 @@
 escape ^zz
+startup_message off
 autodetach on
 hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
-shelltitle "$ |bash"
+setenv ZDOTDIR ${HOME}/.zsh
+shelltitle "$ |zsh"
 deflogin off
 defflow off
 defscrollback 100000
 termcapinfo xterm* ti@:te@
+deflog on
+logfile '.screen_logs/screenlog.%H.%Y%m%d-%02c:%s-%n.%t.log'
+logtstamp on
+logtstamp string "\n-- SCREEN [%Y/%m/%d %02c:%s] %n:%t --\n"
+term xterm-256color
 screen 0
-screen 1
