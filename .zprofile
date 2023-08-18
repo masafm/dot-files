@@ -34,7 +34,7 @@ if [ -f $(brew --prefix)/bin/nodebrew ]; then
 fi
 
 # Coloring
-if [ -x $(brew --prefix)/bin/gdircolors ]; then
+if [ -x $(brew --prefix)/bin/gdircolors -a -f ~/.colorrc ]; then
     eval `gdircolors ~/.colorrc`
 fi
 ## zsh customize
