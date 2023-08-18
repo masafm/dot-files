@@ -112,9 +112,9 @@ alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias dot-files='cd ~/dot-files'
-alias .zprofile='emacs ~/.zprofile && . ~/.zprofile'
+alias .zshrc='emacs ${ZDOTDIR-~}/.zshrc && . ${ZDOTDIR-~}/.zshrc'
+alias .zprofile="emacs ${ZDOTDIR-~}/.zprofile && . ${ZDOTDIR-~}/.zprofile"
 alias .emacs='emacs ~/.emacs'
-alias .zshrc='emacs ~/.zshrc && . ~/.zshrc'
 alias av='aws-vault exec sso-sandbox-account-admin --'
 for c in aws sam eksctl;do alias $c="av $c";done
 alias cs='cd ~/cases'
