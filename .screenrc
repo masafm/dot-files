@@ -2,6 +2,7 @@ escape ^zz
 startup_message off
 autodetach on
 hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
+setenv ZDOTDIR ${HOME}/.zsh
 shelltitle "$ |zsh"
 deflogin off
 defflow off
