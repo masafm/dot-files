@@ -71,7 +71,6 @@ function chpwd() {
 	ls -ltrFG
     fi
 }
-#chpwd
 # Completion without ls
 function expand-or-complete-or-list-files() {
     if [[ $#BUFFER == 0 ]]; then
@@ -142,6 +141,15 @@ alias .....='cd ../../../..'
 alias -s {txt,log,out}=emacs
 alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 alias -s {html,HTML}=elinks
+function ssh() {
+    if [ -n "$*" ];then
+	/usr/bin/ssh $*
+	# Erase ssh hostname from terminal tab name
+	echo -en "\033]2;\007"
+    else
+       /usr/bin/ssh
+    fi
+}
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail +4);do alias $h="ssh $h";done
 function gssh() {
     gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
@@ -170,18 +178,3 @@ function install_powerline_precmd() {
 if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
     install_powerline_precmd
 fi
-
-function extract-all() {
-    find . \( -name '*.zip' -o -name '*.tar.gz' -o -name '*.tgz' \) -maxdepth 2 -type f | while read f
-    do
-	echo Extracting $f
-	dir=$(dirname "$f")
-	if [[ "$f" =~ \.zip$ ]]
-	then
-	    sh -c "unzip -o '$f' -d '$dir' >/dev/null && rm -f '$f'" &
-	else
-	    sh -c "tar xf '$f' -C '$dir' >/dev/null && rm -f '$f'" &
-	fi
-    done
-    wait
-}
