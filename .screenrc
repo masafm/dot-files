@@ -1,5 +1,6 @@
 ## General Settings
-escape ^zz
+#escape ^zz #Escape by ctrl+z
+escape ^\\\ #Escape by ctrl+\
 startup_message off
 autodetach on
 #deflogin off
