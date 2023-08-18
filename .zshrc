@@ -64,10 +64,6 @@ setopt interactivecomments
 # Case-insensitive for completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 function chpwd() {
-    # Set terminal window name
-    echo -en "\033]2; "$(pwd | perl -pe 's#'$HOME'#~#;s#/[^/]+$##')" \007"
-    # Set teminal tab name
-    echo -en "\033]1; "$(pwd | perl -pe 's#'$HOME'#~#;s#.*?/(\d+ \| [^/]+).*#$1#')" \007"
     if [ -x $(brew --prefix)/bin/gls ]
     then
 	gls -ltr --color=auto
@@ -112,9 +108,9 @@ alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias dot-files='cd ~/dot-files'
-alias .zprofile='emacs ~/.zprofile && . ~/.zprofile'
+alias .zshrc='emacs ${ZDOTDIR-~}/.zshrc && . ${ZDOTDIR-~}/.zshrc'
+alias .zprofile="emacs ${ZDOTDIR-~}/.zprofile && . ${ZDOTDIR-~}/.zprofile"
 alias .emacs='emacs ~/.emacs'
-alias .zshrc='emacs ~/.zshrc && . ~/.zshrc'
 alias av='aws-vault exec sso-sandbox-account-admin --'
 for c in aws sam eksctl;do alias $c="av $c";done
 alias cs='cd ~/cases'
@@ -147,14 +143,6 @@ alias -s {txt,log,out}=emacs
 alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 alias -s {html,HTML}=elinks
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail +4);do alias $h="ssh $h";done
-function ssh() {
-    if [ -n "$*" ];then
-       echo -en "\033]1; "$(echo "$*" | perl -pe 's/\s*-[^\s]+\s+[^\s]+\s*//g')" \007"
-       /usr/bin/ssh $*
-    else
-       /usr/bin/ssh
-    fi
-}
 function gssh() {
     gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
 }

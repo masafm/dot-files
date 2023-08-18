@@ -1,16 +1,29 @@
-escape ^zz
+## General Settings
+#escape ^zz #Escape by ctrl+z
+escape ^\\\ #Escape by ctrl+\
 startup_message off
 autodetach on
-hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
+#deflogin off
+#defflow off
+
+## Shell
 setenv ZDOTDIR ${HOME}/.zsh
-shelltitle "$ |zsh"
-deflogin off
-defflow off
-defscrollback 100000
+shelltitle "% |zsh"
+
+# Scroll back buffer by mouse wheel
 termcapinfo xterm* ti@:te@
+defscrollback 100000
+
+## Logging
 deflog on
 logfile '.screen_logs/screenlog.%H.%Y%m%d-%02c:%s-%n.%t.log'
 logtstamp on
 logtstamp string "\n-- SCREEN [%Y/%m/%d %02c:%s] %n:%t --\n"
+
+## For PowerLine
 term xterm-256color
+## This does not work well with PowerLine
+#hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
+
+## Initial Winddows
 screen 0
