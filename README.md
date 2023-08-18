@@ -2,7 +2,10 @@
 ```
 cd ~
 # git clone this repo
+ln -s dot-files/.zshrc ~/
+ln -s dot-files/.emacs ~/
+ln -s dot-files/.colorrc ~/
 ln -s dot-files/.screenrc ~/
-ln -s dot-files/.zshrc.mac ~/.zshrc #Mac Only
 ```
-Macではターミナルの設定で､シェルのコマンドを実行に`exec screen -R`とシェル内で実行にチェックを入れる
+Macではターミナルの設定で､シェルのコマンドを実行に`exec script ~/.logs/$(date +%Y%m%d%H%M%S)-$$.log zsh`とシェル内で実行にチェックを入れる
+デフォルトのシェルを/bin/shにする
