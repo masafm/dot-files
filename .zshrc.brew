@@ -1,0 +1,38 @@
+#!/sh/zsh
+BREW_PERFIX=$(brew --prefix)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# zsh completions need to be initialized before additional zsh completions
+if [ -f ${BREW_PREFIX}/share/zsh-completions ]; then
+    FPATH=${BREW_PREFIX}/share/zsh-completions:$FPATH
+    autoload -Uz compinit
+    compinit
+    # Completion for kubectl
+    [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+fi
+
+if [ -f ${BREW_PREFIX}/bin/pyenv ]; then
+    eval "$(pyenv init --path)"
+fi
+if [ -d ${BREW_PREFIX}/opt/openjdk/bin ]; then
+    export PATH="${BREW_PREFIX}/opt/openjdk/bin:$PATH"
+fi
+
+if [ -f ${BREW_PREFIX}/bin/nodebrew ]; then
+    export PATH=$HOME/.nodebrew/current/bin:$PATH
+fi
+
+if [ -f ${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh ];then
+    source ${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -x ${BREW_PREFIX}/bin/gdircolors -a -f ~/.colorrc ]; then
+    eval `gdircolors ~/.colorrc`
+fi
+
+# Google Cloud SDK
+if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
+
+# gcloud command completion
+if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
