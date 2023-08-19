@@ -2,7 +2,6 @@
 source ~/.zshrc
 
 # Functions & Aliases
-source ~/dot-files/.zshrc.func
 source ~/dot-files/.zshrc.alias
 
 # zsh
