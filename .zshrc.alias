@@ -1,0 +1,113 @@
+#!/bin/zsh
+if [ -x $(brew --prefix)/bin/gls ];then
+    alias ls='gls --color=auto'
+    alias la='gls -la --color=auto'
+    alias ll='gls -l --color=auto'
+else
+    alias ls='ls -FG'
+    alias la='ls -alFG'
+    alias ll='ls -lFG'
+fi
+if [ -x $(brew --prefix)/bin/gdate ];then
+    alias date='gdate'
+fi
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias gtags='gtags --gtagslabel=pygments -v'
+alias emacs='emacs -nw'
+alias dfiles='cd ~/dot-files'
+alias .zshrc='emacs ${ZDOTDIR-~}/.zshrc && . ${ZDOTDIR-~}/.zshrc'
+alias .zprofile="emacs ${ZDOTDIR-~}/.zprofile && . ${ZDOTDIR-~}/.zprofile"
+alias .emacs='emacs ~/.emacs'
+alias av='aws-vault exec sso-sandbox-account-admin --'
+for c in aws sam eksctl;do alias $c="av $c";done
+alias c='code .'
+alias d='cd ~/downloads'
+alias e='emacs -nw'
+alias f='open .'
+alias o='open'
+alias gb='git branch -a'
+alias gco='git checkout'
+alias gcm='git add --all && git commit -m update && git push'
+alias gcl='git clone'
+alias gd='git diff'
+alias gp='git pull --all'
+alias gs='git status'
+alias h='cd ~'
+alias history='history -t "%F %T"'
+alias jq='jq -C'
+alias kube='kubectl'
+alias less='less -R'
+alias pubkey='op item get id_rsa --fields label="public key"'
+alias src='cd ~/src'
+alias s='src'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias -s {txt,log,out}=emacs
+alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
+alias -s {html,HTML}=elinks
+
+# ls dir when dir changed
+function chpwd() {
+    if [ -x $(brew --prefix)/bin/gls ]
+    then
+	gls -ltr --color=auto
+    else
+	ls -ltrFG
+    fi
+}
+
+# Completion without ls
+function expand-or-complete-or-list-files() {
+    if [[ $#BUFFER == 0 ]]; then
+        BUFFER="ls -t ./"
+        CURSOR=6
+        zle list-choices
+        zle backward-kill-line
+	CURSOR=2
+    else
+	zle expand-or-complete
+        #zle expand-or-complete-or-list-hosts
+    fi
+}
+
+function ssh() {
+    if [ -n "$*" ];then
+	/usr/bin/ssh $*
+	# Erase ssh hostname from terminal tab name
+	echo -en "\033]2;\007"
+    else
+       /usr/bin/ssh
+    fi
+}
+for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail +4);do alias $h="ssh $h";done
+
+function gssh() {
+    gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
+}
+
+function aws-private-ip() {
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
+}
+
+function aws-public-ip() {
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
+}
+
+function cs() {
+    if [ -z "$1" ];then
+	cd ~/Downloads
+    else
+	cd ~/Downloads/$1*
+    fi
+}

@@ -1,0 +1,20 @@
+#!/bin/zsh
+export HISTSIZE=100000
+export SAVEHIST=100000
+## Treat / as word separator
+export WORDCHARS=${WORDCHARS/\/}
+setopt auto_cd
+setopt auto_pushd
+setopt correct
+setopt share_history
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
+setopt extended_history
+setopt interactivecomments
+## Case-insensitive for completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+## Completion without ls
+zle -N expand-or-complete-or-list-files
+## Bind to tab
+bindkey '^I' expand-or-complete-or-list-files
+bindkey '^U' backward-kill-line
