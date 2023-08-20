@@ -49,7 +49,7 @@ PATH_ALIASES=(
     '~/downloads/=~d'
     '~/Downloads/=~d'
 )
-for d in $(find ~/src -maxdepth 1 -mindepth 1 -type d);do
+[[ -d ~/src ]] && for d in $(find ~/src -maxdepth 1 -mindepth 1 -type d);do
     PATH_ALIASES+='~/src/'$(basename $d)'/=~s:'$(basename $d)
 done
 function powerline_precmd() {
