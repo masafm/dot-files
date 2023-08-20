@@ -15,7 +15,7 @@ ln -s dot-files/.screenrc ~/
 ## Ubuntu
 ```
 cd ~
-apt install zsh zsh-autosuggestions fzf golang git
+apt install zsh zsh-autosuggestions fzf golang git emacs
 git clone git@github.com:masafm/dot-files.git
 ln -s dot-files/.zshrc ~/.zshrc
 ln -s dot-files/.emacs ~/
@@ -29,7 +29,7 @@ go install github.com/justjanne/powerline-go@latest
 ## RHEL
 ```
 cd ~
-yum install zsh golang git util-linux-user
+yum install zsh golang git util-linux-user emacs
 git clone git@github.com:masafm/dot-files.git
 ln -s dot-files/.zshrc ~/.zshrc
 ln -s dot-files/.emacs ~/

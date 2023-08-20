@@ -103,7 +103,7 @@ function ssh() {
        /usr/bin/ssh
     fi
 }
-for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail +4);do alias $h="ssh $h";done
+for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
 
 function gssh() {
     gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
