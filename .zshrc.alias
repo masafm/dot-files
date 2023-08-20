@@ -21,7 +21,6 @@ alias .zprofile="emacs ${ZDOTDIR-~}/.zprofile && . ${ZDOTDIR-~}/.zprofile"
 alias .emacs='emacs ~/.emacs'
 alias av='aws-vault exec sso-sandbox-account-admin --'
 for c in aws sam eksctl;do alias $c="av $c";done
-alias cs='cd ~/cases'
 alias c='code .'
 alias d='cd ~/downloads'
 alias e='emacs -nw'
@@ -103,4 +102,12 @@ function aws-public-ip() {
 	return 1
     fi
     aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
+}
+
+function cs() {
+    if [ -z "$1" ];then
+	cd ~/Downloads
+    else
+	cd ~/Downloads/$1*
+    fi
 }

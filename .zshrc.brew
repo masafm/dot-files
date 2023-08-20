@@ -1,10 +1,10 @@
 #!/sh/zsh
-BREW_PERFIX=$(brew --prefix)
+BREW_PREFIX=$(brew --prefix)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # zsh completions need to be initialized before additional zsh completions
-if [ -f ${BREW_PREFIX}/share/zsh-completions ]; then
+if [ -d ${BREW_PREFIX}/share/zsh-completions ]; then
     FPATH=${BREW_PREFIX}/share/zsh-completions:$FPATH
     autoload -Uz compinit
     compinit
