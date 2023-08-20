@@ -53,7 +53,7 @@ for d in $(find ~/src -maxdepth 1 -mindepth 1 -type d);do
     PATH_ALIASES+='~/src/'$(basename $d)'/=~s:'$(basename $d)
 done
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules ${MODULES}cwd,venv,perms,aws,jobs,exit,terraform-workspace,docker,git,goenv,root -path-aliases ${(pj:,:)PATH_ALIASES})"
+    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -modules ${MODULES}cwd,venv,perms,aws,jobs,exit,terraform-workspace,docker,git,goenv -path-aliases ${(pj:,:)PATH_ALIASES})"
 }
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
