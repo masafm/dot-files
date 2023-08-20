@@ -1,15 +1,23 @@
 #!/bin/zsh
-if [ -x $(brew --prefix)/bin/gls ];then
-    alias ls='gls --color=auto'
-    alias la='gls -la --color=auto'
-    alias ll='gls -l --color=auto'
-else
-    alias ls='ls -FG'
-    alias la='ls -alFG'
-    alias ll='ls -lFG'
-fi
-if [ -x $(brew --prefix)/bin/gdate ];then
-    alias date='gdate'
+alias ls='ls --color=auto'
+alias la='ls -la --color=auto'
+alias ll='ls -l --color=auto'
+if [[ $(uname) == "Darwin" ]];then
+    if [[ -x ${HOMEBREW_PREFIX}/bin/gls ]];then
+	alias ls='gls --color=auto'
+	alias la='gls -la --color=auto'
+	alias ll='gls -l --color=auto'
+    else
+	alias ls='ls -FG'
+	alias la='ls -alFG'
+	alias ll='ls -lFG'
+    fi
+    if [[ -x ${HOMEBREW_PREFIX}/bin/gdate ]];then
+	alias date='gdate'
+    fi
+    if [[ -x ${HOMEBREW_PREFIX}/bin/gdircolors ]];then
+	alias dircolors='gdircolors'
+    fi
 fi
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -51,11 +59,15 @@ alias -s {html,HTML}=elinks
 
 # ls dir when dir changed
 function chpwd() {
-    if [ -x $(brew --prefix)/bin/gls ]
-    then
-	gls -ltr --color=auto
+    if [[ $(uname) == "Darwin" ]];then
+	if [ -x ${HOMEBREW_PREFIX}/bin/gls ]
+	then
+	    gls -ltr --color=auto
+	else
+	    ls -ltrFG
+	fi
     else
-	ls -ltrFG
+	ls -ltr --color=auto
     fi
 }
 
