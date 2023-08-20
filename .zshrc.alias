@@ -58,15 +58,22 @@ alias -s {txt,log,out}=emacs
 alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 alias -s {html,HTML}=elinks
 
+function set-title() {
+    if [[ $(uname) != "Darwin" ]];then
+	hostname=$(hostname):
+    fi
+    # Set terminal window name
+    echo -en "\033]2; ${hostname}$(pwd | sed -e 's#'$HOME'#~#') \007"
+    # Set teminal tab name
+    echo -en "\033]1; ${hostname}$(pwd | sed -e 's#'$HOME'#~#' -e 's#.*/##') \007"
+}
+set-title
+
 # ls dir when dir changed
 function chpwd() {
-    if [[ $(uname) == "Darwin" ]];then
-	if [ -x ${HOMEBREW_PREFIX}/bin/gls ]
-	then
-	    gls -ltr --color=auto
-	else
-	    ls -ltrFG
-	fi
+    set-title
+    if [[ $(uname) == "Darwin" && ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
+	ls -ltrFG
     else
 	ls -ltr --color=auto
     fi
