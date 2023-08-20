@@ -16,17 +16,19 @@
   
   (setq interprogram-cut-function 'paste-to-osx)
   (setq interprogram-paste-function 'copy-from-osx)
-)
+  
+  (xterm-mouse-mode 1)
 
-;; display line numbers
-(if (version<= "26.0.50" emacs-version)
-    (progn
-      (global-display-line-numbers-mode)
-      (set-face-attribute 'line-number nil
-                          :foreground "DarkOliveGreen"
-                          :background "#131521")
-      (set-face-attribute 'line-number-current-line nil
-                          :foreground "gold")))
+  ;; display line numbers
+  (if (version<= "26.0.50" emacs-version)
+      (progn
+	(global-display-line-numbers-mode)
+	(set-face-attribute 'line-number nil
+                            :foreground "DarkOliveGreen"
+                            :background "#131521")
+	(set-face-attribute 'line-number-current-line nil
+                            :foreground "gold")))
+)
 
 (add-hook 'c-mode-common-hook (lambda () (ggtags-mode 1)))
 (add-hook 'python-mode-hook (lambda () (ggtags-mode 1)))
@@ -37,7 +39,6 @@
 			    (global-set-key (kbd "M-p") 'previous-error)
 			    ))
 
-(xterm-mouse-mode 1)
 (global-set-key (kbd "<mouse-2>") 'clipboard-yank)
 (global-set-key (kbd "<mouse-3>") 'clipboard-kill-ring-save)
 (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
