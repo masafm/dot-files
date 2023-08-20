@@ -43,7 +43,7 @@ else
     export GOPATH=/usr/local/go
 fi
 if [[ $(uname) != "Darwin" ]];then
-    MODULES="ssh,host,"
+    MODULES="host,"
 fi
 PATH_ALIASES=(
     '~/downloads/=~d'
