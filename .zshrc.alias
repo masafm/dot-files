@@ -24,8 +24,9 @@ alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias dfiles='cd ~/dot-files'
-alias .zshrc='emacs ${ZDOTDIR-~}/.zshrc && . ${ZDOTDIR-~}/.zshrc'
-alias .zprofile="emacs ${ZDOTDIR-~}/.zprofile && . ${ZDOTDIR-~}/.zprofile"
+cd ~/dot-files>/dev/null && for f in .z*;do
+    alias $f="emacs $f && . ~/dot-files/$f"
+done
 alias .emacs='emacs ~/.emacs'
 alias av='aws-vault exec sso-sandbox-account-admin --'
 for c in aws sam eksctl;do alias $c="av $c";done
@@ -36,7 +37,7 @@ alias f='open .'
 alias o='open'
 alias gb='git branch -a'
 alias gco='git checkout'
-alias gcm='git add --all && git commit -m update && git push'
+alias gcm='git add --all && git commit -m update && git push --all'
 alias gcl='git clone'
 alias gd='git diff'
 alias gp='git pull --all'
