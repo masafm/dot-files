@@ -60,12 +60,12 @@ alias -s {html,HTML}=elinks
 
 function set-title() {
     if [[ $(uname) != "Darwin" ]];then
-	hostname=$(hostname):
+	hostname=$USER@$(hostname):
     fi
     # Set terminal window name
-    echo -en "\033]2; ${hostname}$(pwd | sed -e 's#'$HOME'#~#') \007"
+    echo -en "\033]2; "${hostname}$(pwd | sed -e 's#'$HOME'#~#')" \007"
     # Set teminal tab name
-    echo -en "\033]1; ${hostname}$(pwd | sed -e 's#'$HOME'#~#' -e 's#.*/##') \007"
+    echo -en "\033]1; "${hostname}$(pwd | sed -e 's#'$HOME'#~#' -e 's#.*/##' -e 's#^$#/#')" \007"
 }
 set-title
 
@@ -97,7 +97,7 @@ function ssh() {
     if [ -n "$*" ];then
 	/usr/bin/ssh $*
 	# Erase ssh hostname from terminal tab name
-	echo -en "\033]2;\007"
+	set-title
     else
        /usr/bin/ssh
     fi
