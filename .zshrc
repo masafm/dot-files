@@ -1,20 +1,16 @@
 # Base
-source ~/.zshrc
+source ~/dot-files/.zshrc.base
 
 # Functions & Aliases
 source ~/dot-files/.zshrc.alias
 
-# zsh
+# Shell
 source ~/dot-files/.zshrc.shell
 
-# Brew
-source ~/dot-files/.zshrc.brew
-
-# Powerline
-source ~/dot-files/.zshrc.powerline
+# Extra
+source ~/dot-files/.zshrc.extra
 
 # Datadog
-if [ "$(hostname)" = "COMP-P7VR73TR7F" ];then
-   # Datadog related settings
+if [[ $(hostname) = COMP-P7VR73TR7F ]];then
    source ~/src/masa-tools/profile-dd.sh
 fi
