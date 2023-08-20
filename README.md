@@ -20,6 +20,7 @@ ln -s dot-files/.zshrc ~/.zshrc
 ln -s dot-files/.emacs ~/
 ln -s dot-files/.colorrc ~/
 ln -s dot-files/.screenrc ~/
+chsh -s /usr/bin/zsh
 # exit and login again
 go install github.com/justjanne/powerline-go@latest
 ```
