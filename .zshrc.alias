@@ -104,6 +104,28 @@ function ssh() {
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
+alias aws-privatelink='ssh $(aws-private-ip MasafumiKashiwagiPrivateLink) -o ProxyCommand="ssh aws-ubuntu -W %h:%p"'
+function assh() {
+    if [[ -z $1 ]];then
+	echo "Please specify resource id"
+	return 1
+    fi
+    if [[ -z $2 ]];then
+	user=azureuser
+    else
+	user=$2
+    fi
+    local_port=$(($RANDOM % 1000 + 50000))
+    nohup az network bastion tunnel --name "masafumi.kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port 22 --port $local_port >/dev/null & pid=$!
+    sleep 1
+    ssh -l ${user} -p ${local_port} -o StrictHostKeyChecking=no localhost
+    if [[ -n $pid ]];then
+	echo "Killing tunnel($pid)"
+	# Child process will remain by kill command
+	#kill $pid
+	pkill -f "$1.*--resource-port 22 --port $local_port"
+    fi
+}
 
 function gssh() {
     gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
