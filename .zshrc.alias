@@ -133,7 +133,7 @@ function awssh() {
     else
 	instance=${input_array[1]}
     fi
-    instance=${instance/aws/masafumi.kashiwagi}
+    instance=${instance/aws/masafumi-kashiwagi}
     public_ip=$(aws-public-ip "$instance")
     shift
     if [[ -n $public_ip ]];then
@@ -172,7 +172,20 @@ function azssh() {
 }
 
 function gssh() {
-    gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    input_array=(${(s:@:)1})
+    user=masafumi_kashiwagi_datadoghq_com
+    if [[ ${#input_array[*]} > 1 ]];then
+	user=${input_array[1]}
+	instance=${input_array[2]}
+    else
+	instance=${input_array[1]}
+    fi
+    instance=${instance/gcp/masafumi-kashiwagi}
+    gcloud compute ssh --plain ${user}@${instance}
 }
 
 function cs() {
