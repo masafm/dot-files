@@ -28,7 +28,7 @@ cd ~/dot-files>/dev/null;for f in .z*;do
     alias $f="emacs ~/dot-files/$f && . ~/dot-files/$f"
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
-alias av='aws-vault exec sso-sandbox-account-admin --'
+alias av='aws-vault exec masafumi.kashiwagi --'
 for c in aws sam eksctl;do alias $c="av $c";done
 alias c='code .'
 alias d='cd ~/downloads'
