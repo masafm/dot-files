@@ -42,7 +42,7 @@ if [[ -n ${HOMEBREW_PREFIX} ]]; then
 else
     export GOPATH=/usr/local/go
 fi
-if [[ $(uname) != "Darwin" ]];then
+if [[ -n $SSH_CONNECTION ]];then
     MODULES="host,"
 fi
 PATH_ALIASES=(

@@ -28,7 +28,11 @@ cd ~/dot-files>/dev/null;for f in .z*;do
     alias $f="emacs ~/dot-files/$f && . ~/dot-files/$f"
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
-alias av='aws-vault exec masafumi.kashiwagi --'
+if [[ -n $SSH_CONNECTION ]];then
+    alias av="env $(ssh -p 10022 localhost aws-vault export masafumi.kashiwagi)"
+else
+    alias av='aws-vault exec masafumi.kashiwagi --'
+fi
 for c in aws sam eksctl;do alias $c="av $c";done
 alias c='code .'
 alias d='cd ~/downloads'
