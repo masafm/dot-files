@@ -2,6 +2,7 @@
 #escape ^zz #Escape by ctrl+z
 escape ^\\\ #Escape by ctrl+\
 startup_message off
+msgwait 0
 autodetach on
 #deflogin off
 #defflow off
