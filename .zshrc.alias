@@ -29,7 +29,7 @@ cd ~/dot-files>/dev/null;for f in .z*;do
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
 if [[ -n $SSH_CONNECTION ]];then
-    alias av="env $(ssh -p 10022 localhost aws-vault export masafumi.kashiwagi)"
+    alias av='env $(/usr/bin/ssh -p 10022 mkashi@localhost /opt/homebrew/bin/aws-vault export masafumi.kashiwagi)'
 else
     alias av='aws-vault exec masafumi.kashiwagi --'
 fi
