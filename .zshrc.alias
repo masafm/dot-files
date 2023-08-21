@@ -126,7 +126,7 @@ function awssh() {
 	echo "Please specify hostname"
 	return 1
     fi
-    instance=$1
+    instance=${1/aws/masafumi.kashiwagi}
     public_ip=$(aws-public-ip "$instance")
     shift
     if [[ -n $public_ip ]];then
