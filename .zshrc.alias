@@ -104,8 +104,45 @@ function ssh() {
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
-alias aws-privatelink='ssh $(aws-private-ip MasafumiKashiwagiPrivateLink) -o ProxyCommand="ssh aws-ubuntu -W %h:%p"'
-function assh() {
+
+function aws-private-ip() {
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
+}
+
+function aws-public-ip() {
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
+}
+
+function awssh() {
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    instance=$1
+    public_ip=$(aws-public-ip "$instance")
+    shift
+    if [[ -n $public_ip ]];then
+	ssh $public_ip $*
+    else
+	private_ip=$(aws-private-ip "$instance")
+	if [[ -n $private_ip ]];then
+	    echo "Public IP not found for ${instance}.\nAccessing via aws-ubuntu."
+	    ssh $private_ip $* -o ProxyCommand="ssh aws-ubuntu -W %h:%p"
+	else
+	    echo "No IP found for ${instance}"
+	fi
+    fi
+}
+
+function azssh() {
     if [[ -z $1 ]];then
 	echo "Please specify resource id"
 	return 1
@@ -129,22 +166,6 @@ function assh() {
 
 function gssh() {
     gcloud compute ssh --plain masafumi_kashiwagi_datadoghq_com@$*
-}
-
-function aws-private-ip() {
-    if [ -z "$*" ];then
-	echo "Please specify hostname"
-	return 1
-    fi
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
-}
-
-function aws-public-ip() {
-    if [ -z "$*" ];then
-	echo "Please specify hostname"
-	return 1
-    fi
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
 }
 
 function cs() {
