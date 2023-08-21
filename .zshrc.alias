@@ -95,12 +95,17 @@ function expand-or-complete-or-list-files() {
 }
 
 function ssh() {
+    if [[ $(uname) == "Darwin" && -x ${HOMEBREW_PREFIX}/bin/ssh ]];then
+	cmd=${HOMEBREW_PREFIX}/bin/ssh
+    else
+	cmd=/usr/bin/ssh
+    fi
     if [ -n "$*" ];then
-	/usr/bin/ssh $*
+	$cmd $*
 	# Erase ssh hostname from terminal tab name
 	set-title
     else
-       /usr/bin/ssh
+       $cmd
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
