@@ -126,16 +126,23 @@ function awssh() {
 	echo "Please specify hostname"
 	return 1
     fi
-    instance=${1/aws/masafumi.kashiwagi}
+    input_array=(${(s:@:)1})
+    if [[ ${#input_array[*]} > 1 ]];then
+	user=${input_array[1]}
+	instance=${input_array[2]}
+    else
+	instance=${input_array[1]}
+    fi
+    instance=${instance/aws/masafumi.kashiwagi}
     public_ip=$(aws-public-ip "$instance")
     shift
     if [[ -n $public_ip ]];then
-	ssh $public_ip $*
+	ssh ${user+${user}@}${public_ip} $*
     else
 	private_ip=$(aws-private-ip "$instance")
 	if [[ -n $private_ip ]];then
 	    echo "Public IP not found for ${instance}.\nAccessing via aws-ubuntu."
-	    ssh $private_ip $* -o ProxyCommand="ssh aws-ubuntu -W %h:%p"
+	    ssh ${user+${user}@}${public_ip} $* -o ProxyCommand="ssh aws-ubuntu -W %h:%p"
 	else
 	    echo "No IP found for ${instance}"
 	fi
