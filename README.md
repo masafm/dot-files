@@ -10,6 +10,7 @@ ln -s dot-files/.screenrc ~/
 
 ## Linux
 Ubuntu: `apt update -y && apt install -y zsh zsh-autosuggestions fzf golang git emacs`
+
 RHEL: `yum install -y zsh golang git util-linux-user emacs`
 
 ```
