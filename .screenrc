@@ -9,7 +9,7 @@ autodetach on
 
 ## Shell
 setenv ZDOTDIR ${HOME}/.zsh
-#shelltitle "% |zsh"
+#shelltitle "# |zsh"
 
 # Scroll back buffer by mouse wheel
 termcapinfo xterm* ti@:te@
@@ -23,7 +23,7 @@ defscrollback 100000
 
 ## For PowerLine
 term xterm-256color
-## This does not work well with PowerLine
+## This does not work well with MacOS PowerLine
 #hardstatus alwayslastline "%{= rw} %H %{= wk}%-Lw%{= bw}%n%f* %t%{= wk}%+Lw %{= wk}%=%{= gk} %y/%m/%d %c "
 
 ## Initial Winddows
