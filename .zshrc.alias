@@ -29,7 +29,7 @@ cd ~/dot-files>/dev/null;for f in .z*;do
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
 if [[ -n $SSH_CONNECTION ]];then
-    alias av='env $(/usr/bin/ssh -p 10022 mkashi@localhost env PATH='"'"'/opt/homebrew/bin:/usr/local/bin${PATH+:$PATH}'"'"' aws-vault export masafumi.kashiwagi)'
+    alias av='env $($(/usr/bin/which ssh) -o StrictHostKeyChecking=no -p '${RSSH_LOCAL_PORT}' mkashi@localhost env PATH='"'"'/opt/homebrew/bin:/usr/local/bin${PATH+:$PATH}'"'"' aws-vault export masafumi.kashiwagi)'
 else
     alias av='aws-vault exec masafumi.kashiwagi --'
 fi
@@ -116,6 +116,7 @@ function ssh() {
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
+alias aws-ubuntu='p=$(($RANDOM % 1000 + 50000)); env RSSH_LOCAL_PORT=$p aws-ubuntu -R ${p}:127.0.0.1:10022 -o SendEnv=RSSH_LOCAL_PORT'
 
 function aws-private-ip() {
     if [ -z "$*" ];then
