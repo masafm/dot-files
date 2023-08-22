@@ -68,7 +68,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(markdown-mode typescript-mode terraform-mode yaml-mode jpop tramp org-sidebar rg ripgrep fzf dired-toggle protobuf-mode ibuffer-project elscreen neotree moody spaceline go-mode json-mode ggtags)))
+   '(python-mode markdown-mode typescript-mode terraform-mode yaml-mode jpop tramp org-sidebar rg ripgrep fzf dired-toggle protobuf-mode ibuffer-project elscreen neotree moody spaceline go-mode json-mode ggtags)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
