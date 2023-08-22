@@ -29,7 +29,7 @@ cd ~/dot-files>/dev/null;for f in .z*;do
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
 if [[ -n $SSH_CONNECTION ]];then
-    alias av='env $(env PATH="/opt/homebrew/bin:/usr/loca/bin${PATH+:$PATH}" /usr/bin/ssh -p 10022 mkashi@localhost /opt/homebrew/bin/aws-vault export masafumi.kashiwagi)'
+    alias av='/usr/bin/ssh -p 10022 mkashi@localhost /usr/bin/ssh -p 10022 mkashi@localhost env PATH=''"''/opt/homebrew/bin:/usr/local/bin${PATH+:$PATH}''"'' /opt/homebrew/bin/aws-vault export masafumi.kashiwagi)'
 else
     alias av='aws-vault exec masafumi.kashiwagi --'
 fi
