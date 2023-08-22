@@ -68,9 +68,9 @@ function set-title() {
 	hostname_f=$USER@$hostname_s
     fi
     # Set terminal window name
-    echo -en "\033]2; "${hostname_f}:$(pwd | sed -e 's#'$HOME'#~#')" \007"
+    echo -en "\033]2; "${hostname_f+${hostname_f}:}$(pwd | sed -e 's#'$HOME'#~#')" \007"
     # Set teminal tab name
-    echo -en "\033]1; "${hostname_s}:$(pwd | sed -e 's#'$HOME'#~#' -e 's#.*/##' -e 's#^$#/#')" \007"
+    echo -en "\033]1; "${hostname_s+${hostname_s}:}$(pwd | sed -e 's#'$HOME'#~#' -e 's#.*/##' -e 's#^$#/#')" \007"
 }
 set-title
 

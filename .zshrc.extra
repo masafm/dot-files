@@ -1,19 +1,12 @@
 #!/sh/zsh
 # fzf
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-type dircolors>/dev/null && [ -f ~/.colorrc ] && eval `dircolors ~/.colorrc`
-type pyenv>/dev/null && eval "$(pyenv init --path)"
-
-# zsh completions need to be initialized before additional zsh completions
-if [[ -d ${HOMEBREW_PREFIX}/share/zsh-completions ]]; then
-    FPATH=${HOMEBREW_PREFIX}/share/zsh-completions:$FPATH
-    autoload -Uz compinit
-    compinit
-fi
-# kubectl
+if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.colorrc`;fi
+[[ $commands[pyenv] ]] && eval "$(pyenv init --path)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+[[ $commands[aws_completer] ]] && complete -C aws_completer aws
 
 if [[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]]; then
     export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"

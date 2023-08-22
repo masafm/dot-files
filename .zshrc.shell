@@ -19,3 +19,9 @@ zle -N expand-or-complete-or-list-files
 ## Bind to tab
 bindkey '^I' expand-or-complete-or-list-files
 bindkey '^U' backward-kill-line
+
+if [[ -d ${HOMEBREW_PREFIX}/share/zsh-completions ]]; then
+    FPATH=${HOMEBREW_PREFIX}/share/zsh-completions:$FPATH
+fi
+autoload -Uz compinit && compinit
+autoload -U bashcompinit && bashcompinit
