@@ -116,7 +116,7 @@ function ssh() {
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
-unalias aws-ubuntu
+if alias aws-ubuntu>/dev/null;then unalias aws-ubuntu;fi
 function aws-ubuntu() {
     p=$(($RANDOM % 10000 + 50000))
     env RSSH_LOCAL_PORT=$p ssh aws-ubuntu -R ${p}:127.0.0.1:10022 -o SendEnv=RSSH_LOCAL_PORT
