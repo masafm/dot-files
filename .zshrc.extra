@@ -35,8 +35,8 @@ if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
 else
     export GOPATH=/usr/local/go
 fi
-if [[ -n $SSH_CONNECTION ]];then
-    MODULES="host,"
+if [[ $(hostname) != COMP-P7VR73TR7F ]];then
+    MODULES="user,host,"
 fi
 PATH_ALIASES=(
     '~/downloads/=~d'
