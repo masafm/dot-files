@@ -1,14 +1,20 @@
+if [[ -d ~/dot-files/ ]];then
+    root_dir=~/dot-files
+else
+    root_dir=/usr/local/dot-files
+fi
+
 # Base
-source ~/dot-files/.zshrc.base
+source ${root_dir}/.zshrc.base
 
 # Functions & Aliases
-source ~/dot-files/.zshrc.alias
+source ${root_dir}/.zshrc.alias
 
 # Shell
-source ~/dot-files/.zshrc.shell
+source ${root_dir}/.zshrc.shell
 
 # Extra
-source ~/dot-files/.zshrc.extra
+source ${root_dir}/.zshrc.extra
 
 # Datadog
 if [[ $(hostname) = COMP-P7VR73TR7F ]];then

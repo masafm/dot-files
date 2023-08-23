@@ -23,9 +23,9 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
-alias dfiles='cd ~/dot-files'
-cd ~/dot-files>/dev/null;for f in .z*;do
-    alias $f="emacs ~/dot-files/$f && . ~/dot-files/$f"
+alias dfiles='cd ${root_dir}'
+cd ${root_dir}/dot-files>/dev/null;for f in .z*;do
+    alias $f="emacs ${root_dir}/$f && . ${root_dir}/$f"
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
 if [[ -n $SSH_CONNECTION ]];then
