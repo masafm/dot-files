@@ -28,11 +28,7 @@ cd ${root_dir}>/dev/null;for f in .z*;do
     alias $f="emacs ${root_dir}/$f && . ${root_dir}/$f"
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
-if [[ -n $SSH_CONNECTION ]];then
-    alias av='env $($(/usr/bin/which ssh) -o StrictHostKeyChecking=no -p '${RSSH_LOCAL_PORT}' mkashi@localhost env PATH='"'"'/opt/homebrew/bin:/usr/local/bin${PATH+:$PATH}'"'"' aws-vault export masafumi.kashiwagi)'
-else
-    alias av='aws-vault exec masafumi.kashiwagi --'
-fi
+alias av='aws-vault exec masafumi.kashiwagi --'
 for c in aws sam eksctl;do alias $c="av $c";done
 alias c='code .'
 alias d='cd ~/downloads'

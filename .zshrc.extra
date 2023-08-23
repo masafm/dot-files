@@ -23,6 +23,11 @@ if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]];then
     source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+if [[ $(uname) != Darwin ]];then
+    export AWS_VAULT_BACKEND=pass
+    export GPG_TTY=$(tty)
+fi
+
 # Google Cloud SDK
 if [[ -f ~/google-cloud-sdk/path.zsh.inc ]]; then . ~/google-cloud-sdk/path.zsh.inc; fi
 
