@@ -24,7 +24,7 @@ alias egrep='egrep --color=auto'
 alias gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias dfiles='cd ${root_dir}'
-cd ${root_dir}/dot-files>/dev/null;for f in .z*;do
+cd ${root_dir}>/dev/null;for f in .z*;do
     alias $f="emacs ${root_dir}/$f && . ${root_dir}/$f"
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
