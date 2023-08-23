@@ -30,7 +30,7 @@ if [[ -f ~/google-cloud-sdk/path.zsh.inc ]]; then . ~/google-cloud-sdk/path.zsh.
 if [[ -f ~/google-cloud-sdk/completion.zsh.inc ]]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
 
 # powerline
-if [[ -n ${HOMEBREW_PREFIX} ]]; then
+if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
     GOPATH=${HOMEBREW_PREFIX}
 else
     export GOPATH=/usr/local/go
