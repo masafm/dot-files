@@ -113,13 +113,14 @@ function ssh() {
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
-if alias aws-ubuntu>/dev/null;then unalias aws-ubuntu;fi
-function aws-ubuntu() {
-    p=$(($RANDOM % 10000 + 50000))
-    env RSSH_LOCAL_PORT=$p ssh aws-ubuntu -R ${p}:127.0.0.1:10022 -o SendEnv=RSSH_LOCAL_PORT $*
-    # Erase ssh hostname from terminal tab name
-    set-title
-}
+#if alias aws-ubuntu>/dev/null;then unalias aws-ubuntu;fi
+#function aws-ubuntu() {
+#    p=$(($RANDOM % 10000 + 50000))
+#    # For SendEnv, you need to modify sshd_config
+#    env RSSH_LOCAL_PORT=$p ssh aws-ubuntu -R ${p}:127.0.0.1:10022 -o SendEnv=RSSH_LOCAL_PORT $*
+#    # Erase ssh hostname from terminal tab name
+#    set-title
+#}
 alias aws-privatelink='awssh aws-privatelink'
 
 function aws-private-ip() {
