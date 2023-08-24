@@ -26,6 +26,7 @@ fi
 if [[ $(uname) != Darwin ]];then
     export AWS_VAULT_BACKEND=pass
     export GPG_TTY=$(tty)
+    export XAUTHORITY=$HOME/.Xauthority
 fi
 
 # Google Cloud SDK
