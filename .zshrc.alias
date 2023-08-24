@@ -120,13 +120,15 @@ function aws-ubuntu() {
     # Erase ssh hostname from terminal tab name
     set-title
 }
+alias aws-privatelink='awssh aws-privatelink'
 
 function aws-private-ip() {
     if [ -z "$*" ];then
 	echo "Please specify hostname"
 	return 1
     fi
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
+    instance=${1/aws/masafumi-kashiwagi}
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
 }
 
 function aws-public-ip() {
@@ -134,7 +136,8 @@ function aws-public-ip() {
 	echo "Please specify hostname"
 	return 1
     fi
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=$*" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
+    instance=${1/aws/masafumi-kashiwagi}
+    aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
 }
 
 function awssh() {
@@ -157,8 +160,9 @@ function awssh() {
     else
 	private_ip=$(aws-private-ip "$instance")
 	if [[ -n $private_ip ]];then
-	    echo "Public IP not found for ${instance}.\nAccessing via aws-ubuntu."
-	    ssh ${user+${user}@}${public_ip} $* -o ProxyCommand="ssh aws-ubuntu -W %h:%p"
+	    proxy=$(aws-public-ip aws-ubuntu)
+	    echo "Public IP not found for ${instance}.\nAccessing via ${proxy}."
+	    ssh ${user+${user}@}${private_ip} $* -o ProxyCommand="ssh ${proxy} -W %h:%p"
 	else
 	    echo "No IP found for ${instance}"
 	fi
