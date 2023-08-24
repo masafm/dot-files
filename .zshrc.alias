@@ -94,11 +94,15 @@ function expand-or-complete-or-list-files() {
     fi
 }
 
-function ssh() {
+function run_sshd() {
     if [[ $(hostname) == "COMP-P7VR73TR7F" && -x ${HOMEBREW_PREFIX}/sbin/sshd && -z $(pgrep sshd) ]];then
 	${HOMEBREW_PREFIX}/sbin/sshd
 	sleep 1
     fi
+}
+
+function ssh() {
+    #run_sshd
     if [[ $(uname) == "Darwin" && -x ${HOMEBREW_PREFIX}/bin/ssh ]];then
 	cmd=${HOMEBREW_PREFIX}/bin/ssh
     else
