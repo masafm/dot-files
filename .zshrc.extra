@@ -1,39 +1,24 @@
 #!/sh/zsh
-# fzf
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
 if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.colorrc`;fi
 [[ $commands[pyenv] ]] && eval "$(pyenv init --path)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 [[ $commands[aws_completer] ]] && complete -C aws_completer aws
-
-if [[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]]; then
-    export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"
-fi
-
-if [[ -f ${HOMEBREW_PREFIX}/bin/nodebrew ]]; then
-    export PATH=$HOME/.nodebrew/current/bin:$PATH
-fi
-
-if [[ -f ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]];then
-    source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]];then
-    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+[[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]] && export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"
+[[ -f ${HOMEBREW_PREFIX}/bin/nodebrew ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
+[[ -f ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Google Cloud SDK
+[[ -f ~/google-cloud-sdk/path.zsh.inc ]] && source ~/google-cloud-sdk/path.zsh.inc
+# gcloud command completion
+[[ -f ~/google-cloud-sdk/completion.zsh.inc ]] && source ~/google-cloud-sdk/completion.zsh.inc
 
 if [[ $(uname) != Darwin ]];then
     export AWS_VAULT_BACKEND=pass
     export GPG_TTY=$(tty)
     export XAUTHORITY=$HOME/.Xauthority
 fi
-
-# Google Cloud SDK
-if [[ -f ~/google-cloud-sdk/path.zsh.inc ]]; then . ~/google-cloud-sdk/path.zsh.inc; fi
-
-# gcloud command completion
-if [[ -f ~/google-cloud-sdk/completion.zsh.inc ]]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
 
 # powerline
 if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then

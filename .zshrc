@@ -17,6 +17,5 @@ source ${root_dir}/.zshrc.shell
 source ${root_dir}/.zshrc.extra
 
 # Datadog
-if [[ $(hostname) = COMP-P7VR73TR7F ]];then
-   source ~/src/masa-tools/profile-dd.sh
-fi
+[[ $(hostname) == COMP-P7VR73TR7F ]] && source ~/src/masa-tools/profile-dd.sh
+

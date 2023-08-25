@@ -1,13 +1,5 @@
 #!/bin/zsh
 export PATH=/usr/local/bin:$PATH:~/bin
-# Brew
-if [[ -d /opt/homebrew/bin ]];then
-   # Set PATH, MANPATH, etc., for Homebrew.
-   exportPATH="/opt/homebrew/bin:$PATH"
-   eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-if [[ -n ${SSH_CONNECTION} ]];then
-    echo -en "\033]2;$(hostname)\007"
-fi
+[[ -n ${SSH_CONNECTION} ]] && echo -en "\033]2;$(hostname)\007"

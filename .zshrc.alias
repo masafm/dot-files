@@ -97,7 +97,7 @@ function expand-or-complete-or-list-files() {
 }
 
 function run_sshd() {
-    if [[ $(hostname) == "COMP-P7VR73TR7F" && -x ${HOMEBREW_PREFIX}/sbin/sshd && -z $(pgrep sshd) ]];then
+    if [[ $(hostname) == COMP-P7VR73TR7F && -x ${HOMEBREW_PREFIX}/sbin/sshd && -z $(pgrep sshd) ]];then
 	${HOMEBREW_PREFIX}/sbin/sshd
 	sleep 1
     fi
