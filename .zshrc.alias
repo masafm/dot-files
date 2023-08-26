@@ -123,15 +123,6 @@ function ssh() {
     fi
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
-#if alias aws-ubuntu>/dev/null;then unalias aws-ubuntu;fi
-#function aws-ubuntu() {
-#    p=$(($RANDOM % 10000 + 50000))
-#    # For SendEnv, you need to modify sshd_config
-#    env RSSH_LOCAL_PORT=$p ssh aws-ubuntu -R ${p}:127.0.0.1:10022 -o SendEnv=RSSH_LOCAL_PORT $*
-#    # Erase ssh hostname from terminal tab name
-#    set-title
-#}
-alias aws-privatelink='awssh aws-privatelink'
 
 function aws-private-ip() {
     if [ -z "$*" ];then
@@ -171,9 +162,13 @@ function awssh() {
     else
 	private_ip=$(aws-private-ip "$instance")
 	if [[ -n $private_ip ]];then
-	    proxy=$(aws-public-ip aws-ubuntu)
-	    echo "Public IP not found for ${instance}.\nAccessing via ${proxy}."
-	    ssh ${user+${user}@}${private_ip} $* -o ProxyCommand="ssh ${proxy} -W %h:%p"
+	    echo "Public IP not found for ${instance}.\nAccessing to private IP ${private_ip}."
+	    ssh ${user+${user}@}${private_ip} $*
+	    if [[ $? != 0 ]];then
+		proxy=$(aws-public-ip aws-ubuntu)
+		echo "Public IP not found for ${instance}.\nAccessing via ${proxy}."
+		ssh ${user+${user}@}${private_ip} $* -o ProxyCommand="ssh ${proxy} -W %h:%p"
+	    fi
 	else
 	    echo "No IP found for ${instance}"
 	fi

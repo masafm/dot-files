@@ -29,7 +29,10 @@ if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.color
 
 # Powerline
 if [[ $(uname) != Darwin || -n $SSH_CONNECTION ]];then
-    MODULES="user,host,"
+    MODULES="host,"
+    if [[ $USER =~ ^(mkashi|ubuntu|ec2-user|azureuser)+$ ]];then
+	MODULES="user,${MODULES}"
+    fi
 fi
 PATH_ALIASES=(
     '~/downloads/=~d'
