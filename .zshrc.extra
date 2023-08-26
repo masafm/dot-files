@@ -1,4 +1,17 @@
-#!/sh/zsh
+#!/usr/bin/env zsh
+if [[ $(uname) != Darwin ]];then
+    export AWS_VAULT_BACKEND=pass
+    export GPG_TTY=$(tty)
+    export XAUTHORITY=$HOME/.Xauthority
+fi
+
+if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
+    export GOPATH=${HOMEBREW_PREFIX}
+else
+    export GOPATH=/usr/local/go
+    export PATH=/usr/local/go:$PATH
+fi
+
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.colorrc`;fi
@@ -14,18 +27,7 @@ if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.color
 # gcloud command completion
 [[ -f ~/google-cloud-sdk/completion.zsh.inc ]] && source ~/google-cloud-sdk/completion.zsh.inc
 
-if [[ $(uname) != Darwin ]];then
-    export AWS_VAULT_BACKEND=pass
-    export GPG_TTY=$(tty)
-    export XAUTHORITY=$HOME/.Xauthority
-fi
-
-# powerline
-if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
-    GOPATH=${HOMEBREW_PREFIX}
-else
-    export GOPATH=/usr/local/go
-fi
+# Powerline
 if [[ $(uname) != Darwin || -n $SSH_CONNECTION ]];then
     MODULES="user,host,"
 fi

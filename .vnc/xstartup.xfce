@@ -1,0 +1,4 @@
+#!/bin/sh
+[ -f $HOME/.Xresources ] && xrdb $HOME/.Xresources
+exec xfce4-session
+#exec wm2

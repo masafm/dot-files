@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 if [[ -d ~/dot-files/ ]];then
     root_dir=~/dot-files
 else
