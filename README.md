@@ -15,7 +15,7 @@ RHEL: `yum install -y zsh golang git util-linux-user emacs`
 
 ```
 cd /usr/local/ && git clone git@github.com:masafm/dot-files.git
-ln -s /usr/local/dot-files/.zshrc ~/.zshrc
+ln -s /usr/local/dot-files/.zshrc ~/
 ln -s /usr/local/dot-files/.emacs ~/
 ln -s /usr/local/dot-files/.colorrc ~/
 ln -s /usr/local/dot-files/.screenrc ~/
