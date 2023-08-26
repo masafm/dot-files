@@ -30,7 +30,7 @@ if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.color
 # Powerline
 if [[ $(uname) != Darwin || -n $SSH_CONNECTION ]];then
     MODULES="host,"
-    if [[ $USER =~ ^(mkashi|ubuntu|ec2-user|azureuser)+$ ]];then
+    if [[ ! $USER =~ ^(mkashi|ubuntu|ec2-user|azureuser)+$ ]];then
 	MODULES="user,${MODULES}"
     fi
 fi
