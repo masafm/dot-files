@@ -17,6 +17,7 @@ fi
 if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.colorrc`;fi
 [[ $commands[pyenv] ]] && eval "$(pyenv init --path)" && eval "$(pyenv init -)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+[[ $commands[microk8s.kubectl] ]] && source <(sudo microk8s.kubectl completion zsh | sed "s/kubectl/microk8s.kubectl/g")
 [[ $commands[aws_completer] ]] && complete -C aws_completer aws
 [[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]] && export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"
 [[ -f ${HOMEBREW_PREFIX}/bin/nodebrew ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
