@@ -164,6 +164,7 @@ function awssh() {
     public_ip=$(aws-public-ip "$instance")
     shift
     if [[ -n $public_ip ]];then
+	echo "Accessing to public IP ${public_ip}"
 	ssh ${user+${user}@}${public_ip} $*
     else
 	private_ip=$(aws-private-ip "$instance")
