@@ -15,7 +15,7 @@ fi
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.colorrc`;fi
-[[ $commands[pyenv] ]] && eval "$(pyenv init --path)"
+[[ $commands[pyenv] ]] && eval "$(pyenv init --path)" && eval "$(pyenv init -)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 [[ $commands[aws_completer] ]] && complete -C aws_completer aws
 [[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]] && export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"
@@ -29,7 +29,10 @@ if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.color
 
 # Powerline
 if [[ $(uname) != Darwin || -n $SSH_CONNECTION ]];then
-    MODULES="user,host,"
+    MODULES="host,"
+    if [[ $USER =~ ^(mkashi|ubuntu|ec2-user|azureuser)+$ ]];then
+	MODULES="user,${MODULES}"
+    fi
 fi
 PATH_ALIASES=(
     '~/downloads/=~d'
