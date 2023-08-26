@@ -1,8 +1,7 @@
 XTerm*utf8              : 1
 XTerm*locale            : true
 XTerm*selectToClipboard : true
-XTerm*faceName: DejaVu Sans Mono for Powerline:style=Book:antialias=true
-XTerm*faceNameDoublesize: VL Gothic for Powerline:style=reguler:antialias=true
+XTerm*faceName: Source Code Pro for Powerline:antialias=true
 xterm*ximFont: -misc-fixed-medium-r-normal--14-130-75-75-c-140-jisx0208.1983-0
 XTerm*faceSize          : 10.5
 XTerm*cjkWidth          : true
