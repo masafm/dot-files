@@ -30,7 +30,7 @@ done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
 alias av='aws-vault exec masafumi.kashiwagi --'
 for c in aws sam eksctl datadog-ci;do alias $c="av $c";done
-alias c='code .'
+alias c='code'
 alias d='cd ~/downloads'
 alias e='emacs -nw'
 alias f='open .'
