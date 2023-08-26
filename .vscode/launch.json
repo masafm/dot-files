@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "remote-agent",
+        "type": "go",
+        "request": "attach",
+        "mode": "remote",
+        "remotePath": "",
+        "port": 2345,
+        "host": "aws-agent-debuggee",
+        "cwd": "${workspaceRoot}"
+      },
+      {
+        "name": "remote-process-agent",
+        "type": "go",
+        "request": "attach",
+        "mode": "remote",
+        "remotePath": "",
+        "port": 2346,
+        "host": "aws-agent-debuggee",
+        "cwd": "${workspaceRoot}"
+      },
+      {
+        "name": "remote-trace-agent",
+        "type": "go",
+        "request": "attach",
+        "mode": "remote",
+        "remotePath": "",
+        "port": 2347,
+        "host": "aws-agent-debuggee",
+        "cwd": "${workspaceRoot}"
+      }
+    ]
+  }
