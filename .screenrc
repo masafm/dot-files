@@ -8,7 +8,7 @@ autodetach on
 #defflow off
 
 ## Shell
-setenv ZDOTDIR ${HOME}/.zsh
+#setenv ZDOTDIR ${HOME}/.zsh
 #shelltitle "# |zsh"
 
 # Scroll back buffer by mouse wheel
