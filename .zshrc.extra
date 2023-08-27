@@ -3,7 +3,7 @@ if [[ $(uname) != Darwin ]];then
     export AWS_VAULT_BACKEND=pass
     export GPG_TTY=$(tty)
     export XAUTHORITY=$HOME/.Xauthority
-    export GOROOT=/home/ubuntu/sdk/go1.20.7/
+    export GOROOT=/home/ubuntu/sdk/go1.20.7
     export PATH=${GOROOT}/bin:$PATH
 fi
 
