@@ -3,14 +3,14 @@ XTerm*locale            : true
 XTerm*selectToClipboard : true
 XTerm*faceName: Source Code Pro for Powerline:antialias=true
 xterm*ximFont: -misc-fixed-medium-r-normal--14-130-75-75-c-140-jisx0208.1983-0
-XTerm*faceSize          : 10.5
+XTerm*faceSize          : 9.5
 XTerm*cjkWidth          : true
 XTerm*fontDoublesize    : true
 XTerm*saveLines         : 2000
 XTerm*geometry          : 100x30+300+100
 XTerm*scaleHeight       : 1.0
 
-XTerm*background: #292929
+XTerm*background: #171717
 XTerm*foreground: #EEEEEE
 XTerm*color0: #333333
 XTerm*color1: #A94952
