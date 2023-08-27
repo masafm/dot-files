@@ -6,10 +6,10 @@ if [[ $(uname) != Darwin ]];then
 fi
 
 if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
-    export GOPATH=${HOMEBREW_PREFIX}
+    export GOROOT=${HOMEBREW_PREFIX}
 else
-    export GOPATH=/usr/local/go
-    export PATH=$GOPATH/bin:$PATH
+    export GOROOT=/usr/local/go
+    export PATH=$GOROOT/bin:$PATH
 fi
 
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
@@ -43,7 +43,7 @@ PATH_ALIASES=(
     PATH_ALIASES+='~/src/'$(basename $d)'/=~s:'$(basename $d)
 done
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -colorize-hostname -modules ${MODULES}cwd,venv,perms,aws,jobs,exit,terraform-workspace,docker,git,goenv -path-aliases ${(pj:,:)PATH_ALIASES})"
+    PS1="$($GOROOT/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -colorize-hostname -modules ${MODULES}cwd,venv,perms,aws,jobs,exit,terraform-workspace,docker,git,goenv -path-aliases ${(pj:,:)PATH_ALIASES})"
 }
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
@@ -53,6 +53,6 @@ function install_powerline_precmd() {
   done
   precmd_functions+=(powerline_precmd)
 }
-if [[ "$TERM" != "linux" && -f "$GOPATH/bin/powerline-go" ]]; then
+if [[ "$TERM" != "linux" && -f "$GOROOT/bin/powerline-go" ]]; then
     install_powerline_precmd
 fi
