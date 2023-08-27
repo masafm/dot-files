@@ -14,7 +14,7 @@ fi
 
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-if type dircolors>/dev/null && [[ -f ~/.colorrc ]];then eval `dircolors ~/.colorrc`;fi
+[[ $commands[dircolors] && -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
 [[ $commands[pyenv] ]] && eval "$(pyenv init --path)" && eval "$(pyenv init -)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 [[ $commands[microk8s.kubectl] ]] && source <(sudo microk8s.kubectl completion zsh | sed "s/kubectl/microk8s.kubectl/g")

@@ -2,22 +2,10 @@
 alias ls='ls --color=auto'
 alias la='ls -la --color=auto'
 alias ll='ls -l --color=auto'
-if [[ $(uname) == "Darwin" ]];then
-    if [[ -x ${HOMEBREW_PREFIX}/bin/gls ]];then
-	alias ls='gls --color=auto'
-	alias la='gls -la --color=auto'
-	alias ll='gls -l --color=auto'
-    else
-	alias ls='ls -FG'
-	alias la='ls -alFG'
-	alias ll='ls -lFG'
-    fi
-    if [[ -x ${HOMEBREW_PREFIX}/bin/gdate ]];then
-	alias date='gdate'
-    fi
-    if [[ -x ${HOMEBREW_PREFIX}/bin/gdircolors ]];then
-	alias dircolors='gdircolors'
-    fi
+if [[ $(uname) == Darwin && ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
+    alias ls='ls -FG'
+    alias la='ls -alFG'
+    alias ll='ls -lFG'
 fi
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -71,7 +59,7 @@ alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pp
 alias -s {html,HTML}=elinks
 
 function set-title() {
-    if [[ $(uname) != "Darwin" ]];then
+    if [[ $(uname) != Darwin ]];then
 	hostname_s=$(hostname)
 	hostname_f=$USER@$hostname_s
     fi
@@ -85,7 +73,7 @@ set-title
 # ls dir when dir changed
 function chpwd() {
     set-title
-    if [[ $(uname) == "Darwin" && ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
+    if [[ $(uname) == Darwin && ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
 	ls -ltrFG
     else
 	ls -ltr --color=auto
@@ -115,7 +103,7 @@ function run_sshd() {
 
 function ssh() {
     #run_sshd
-    if [[ $(uname) == "Darwin" && -x ${HOMEBREW_PREFIX}/bin/ssh ]];then
+    if [[ $(uname) == Darwin && -x ${HOMEBREW_PREFIX}/bin/ssh ]];then
 	cmd=${HOMEBREW_PREFIX}/bin/ssh
     else
 	cmd=/usr/bin/ssh
