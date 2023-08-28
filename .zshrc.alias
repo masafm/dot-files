@@ -181,8 +181,8 @@ function azssh() {
 	user=$2
     fi
     local_port=$(($RANDOM % 10000 + 50000))
-    nohup az network bastion tunnel --name "masafumi.kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port 22 --port $local_port >/dev/null & pid=$!
-    sleep 1
+    az network bastion tunnel --name "masafumi.kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port 22 --port $local_port & pid=$!
+    sleep 3
     ssh -l ${user} -p ${local_port} -o StrictHostKeyChecking=no localhost
     if [[ -n $pid ]];then
 	echo "Killing tunnel($pid)"
