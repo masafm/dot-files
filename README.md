@@ -13,7 +13,7 @@ ln -s dot-files/.screenrc ~/
 Ubuntu: `apt update -y && apt install -y zsh zsh-autosuggestions fzf golang git emacs fonts-powerline global`
 RHEL: `yum install -y zsh golang git util-linux-user emacs`
 ```
-cd /usr/local/ && sudo git clone git@github.com:masafm/dot-files.git && sudo chown -R $(id -u):$(id -g) dot-files
+cd ~ && git clone git@github.com:masafm/dot-files.git && sudo mv dot-files /usr/local/
 ln -s /usr/local/dot-files/.zshrc ~/
 ln -s /usr/local/dot-files/.emacs ~/
 ln -s /usr/local/dot-files/.colorrc ~/
