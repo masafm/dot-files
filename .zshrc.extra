@@ -3,14 +3,14 @@ if [[ $(uname) != Darwin ]];then
     export AWS_VAULT_BACKEND=pass
     export GPG_TTY=$(tty)
     export XAUTHORITY=$HOME/.Xauthority
-    export GOROOT=/home/ubuntu/sdk/go1.20.7
+    [[ -d /home/ubuntu/sdk/go1.20.7 ]] && export GOROOT=/home/ubuntu/sdk/go1.20.7
     export PATH=${GOROOT}/bin:$PATH
 fi
 
 if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
     POWERLINE_PATH=${HOMEBREW_PREFIX}
 else
-    POWERLINE_PATH=/opt/powerline
+    POWERLINE_PATH=/opt/powerline-go
     export PATH=$POWERLINE_PATH/bin:$PATH
 fi
 
