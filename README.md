@@ -20,6 +20,6 @@ ln -s /usr/local/dot-files/.colorrc ~/
 ln -s /usr/local/dot-files/.screenrc ~/
 chsh -s /usr/bin/zsh
 # exit and login again
-env GOPATH=/opt/powerline go install github.com/justjanne/powerline-go@latest
+env GOPATH=/opt/powerline-go go install github.com/justjanne/powerline-go@latest
 git clone git@github.com:powerline/fonts.git && cd fonts && ./install.sh && cd - && rm -rf ./fonts
 ```

@@ -10,7 +10,7 @@ fi
 if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/go ]]; then
     POWERLINE_PATH=${HOMEBREW_PREFIX}
 else
-    POWERLINE_PATH=/opt/powerline
+    POWERLINE_PATH=/opt/powerline-go
     export PATH=$POWERLINE_PATH/bin:$PATH
 fi
 
