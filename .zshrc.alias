@@ -16,20 +16,18 @@ cd ${root_dir}>/dev/null;for f in .z*;do
     alias $f="emacs ${root_dir}/$f && . ${root_dir}/$f"
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
-alias av='aws-vault exec masafumi.kashiwagi --'
-for c in aws sam eksctl datadog-ci;do alias $c="av $c";done
+av='aws-vault exec masafumi.kashiwagi --'
+alias av=$av
+for c in aws sam eksctl datadog-ci;do alias $c="$av $c";done
 alias c='code'
 alias d='cd ~/downloads'
 alias e='emacs -nw'
 alias f='open .'
 alias o='open'
 alias gb='git branch -a'
-alias gco='git checkout'
-alias co='gco'
-alias gcm='git add --all && git commit -m update;git push'
-alias cm='gcm'
-alias gcl='git clone'
-alias cl='gcl'
+alias co='git checkout'
+alias cm='git add --all && git commit -m update;git push'
+alias cl='git clone'
 alias gd='git diff'
 alias gp='git pull --all'
 alias gm='gp;git merge'

@@ -27,6 +27,8 @@ fi
 [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f ${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f ${HOMEBREW_PREFIX}/share/zsh-abbr/zsh-abbr.zsh ]] && source ${HOMEBREW_PREFIX}/share/zsh-abbr/zsh-abbr.zsh && abbr import-aliases --force --quiet
+
 # Google Cloud SDK
 [[ -f ~/google-cloud-sdk/path.zsh.inc ]] && source ~/google-cloud-sdk/path.zsh.inc
 # gcloud command completion
