@@ -17,7 +17,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias-abbr gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
-alias dfiles='cd ${root_dir}'
+alias-abbr dfi="cd ${root_dir}"
 cd ${root_dir}>/dev/null;for f in .z*;do
     alias $f="emacs ${root_dir}/$f && . ${root_dir}/$f"
 done;cd ->/dev/null
@@ -25,6 +25,9 @@ alias .emacs='emacs ~/.emacs'
 av='aws-vault exec masafumi.kashiwagi --'
 alias-abbr av=$av
 for c in aws sam eksctl datadog-ci;do alias $c="$av $c";done
+alias-abbr au='ssh aws-ubuntu'
+alias-abbr ar='ssh aws-rhel'
+alias-abbr aw='ssh aws-wg'
 alias-abbr c='code'
 alias-abbr d='cd ~/downloads'
 alias-abbr e='emacs'
