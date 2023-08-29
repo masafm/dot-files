@@ -18,9 +18,11 @@ alias egrep='egrep --color=auto'
 alias-abbr gtg='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias-abbr dfi="cd ${root_dir}"
-cd ${root_dir}>/dev/null;for f in .z*;do
-    alias $f="emacs ${root_dir}/$f && . ${root_dir}/$f"
-done;cd ->/dev/null
+alias-abbr .z="emacs ${root_dir}/.zshrc && exec zsh"
+alias-abbr .za="emacs ${root_dir}/.zshrc.alias && exec zsh"
+alias-abbr .zb="emacs ${root_dir}/.zshrc.base && exec zsh"
+alias-abbr .ze="emacs ${root_dir}/.zshrc.extra && exec zsh"
+alias-abbr .zs="emacs ${root_dir}/.zshrc.shell && exec zsh"
 alias .emacs='emacs ~/.emacs'
 av='aws-vault exec masafumi.kashiwagi --'
 alias-abbr av=$av
