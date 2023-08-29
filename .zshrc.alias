@@ -118,6 +118,31 @@ function ssh() {
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
 
+function ec2() {
+    if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    cmd=$1
+    shift
+    instance=${1/aws/masafumi-kashiwagi}
+    shift
+    instance_id=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+    aws ec2 $cmd --instance-ids $instance_id $*
+}
+
+function ec2-start() {
+    ec2 start-instances $*
+}
+
+function ec2-stop() {
+    ec2 stop-instances $*
+}
+
+function ec2-status() {
+    ec2 describe-instance-status $*
+}
+
 function aws-private-ip() {
     if [ -z "$*" ];then
 	echo "Please specify hostname"
