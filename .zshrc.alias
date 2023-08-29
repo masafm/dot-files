@@ -1,15 +1,21 @@
 #!/usr/bin/env zsh
-alias ls='ls --color=auto'
-alias la='ls -la --color=auto'
-alias ll='ls -l --color=auto'
+[[ -f ${HOMEBREW_PREFIX}/share/zsh-abbr/zsh-abbr.zsh ]] && source ${HOMEBREW_PREFIX}/share/zsh-abbr/zsh-abbr.zsh
+if [[ $functions[abbr] ]];then
+    alias alias-abbr='abbr -S -q'
+else
+    alias alias-abbr='alias'
+fi
 if [[ $(uname) == Darwin && ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
     alias ls='ls -FG'
-    alias la='ls -alFG'
-    alias ll='ls -lFG'
+else
+    alias ls='ls --color=auto'
 fi
+alias-abbr la='ls -la'
+alias-abbr ll='ls -l'
+alias-abbr lh='ls -lh'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
-alias gtags='gtags --gtagslabel=pygments -v'
+alias-abbr gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias dfiles='cd ${root_dir}'
 cd ${root_dir}>/dev/null;for f in .z*;do
@@ -17,41 +23,41 @@ cd ${root_dir}>/dev/null;for f in .z*;do
 done;cd ->/dev/null
 alias .emacs='emacs ~/.emacs'
 av='aws-vault exec masafumi.kashiwagi --'
-alias av=$av
+alias-abbr av=$av
 for c in aws sam eksctl datadog-ci;do alias $c="$av $c";done
-alias c='code'
-alias d='cd ~/downloads'
-alias e='emacs -nw'
-alias f='open .'
-alias o='open'
-alias gb='git branch -a'
-alias co='git checkout'
-alias cm='git add --all && git commit -m update;git push'
-alias cl='git clone'
-alias gd='git diff'
-alias gp='git pull --all'
-alias gm='gp;git merge'
-alias gs='git status'
-alias h='cd ~'
-alias history='history -t "%F %T"'
-alias jq='jq -C'
+alias-abbr c='code'
+alias-abbr d='cd ~/downloads'
+alias-abbr e='emacs'
+alias-abbr f='open .'
+alias-abbr o='open'
+alias-abbr gb='git branch -a'
+alias-abbr co='git checkout'
+alias-abbr cm='git add --all && git commit -m update;git push'
+alias-abbr cl='git clone'
+alias-abbr gd='git diff'
+alias-abbr gp='git pull --all'
+alias-abbr gm='gp;git merge'
+alias-abbr gs='git status'
+alias-abbr h='cd ~'
+alias-abbr his='history -t "%F %T"'
+alias-abbr jq='jq -C'
 if [[ $commands[microk8s] ]];then
-    alias kubectl='microk8s.kubectl'
-    alias helm='microk8s.helm'
+    alias-abbr kube='microk8s.kubectl'
+    alias-abbr helm='microk8s.helm'
+else
+    alias-abbr kube='kubectl'
 fi
-alias kube='kubectl'
-alias less='less -R'
-alias pubkey="echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIZVSTqFyDav/xSXBBNGzN2bbbu41j4qw/rqwDTRuTxRdrxtkHdxBgtYjPgxUdpSDXg7zfwqme+VEsoz+12TNbxkuMaZWZeo+K90b3RR1Uqfb22kO4Dg7o98dJymIprn8Qn5xKoSuOJSxkVEqutgJLpVG3E7eaq5QXH4DUmjdvIxP8N+khkCldkSO3eitUOqwUhZG87H/bqtA3xBf5j2K0jF0SzfndTZnFRVZdPvJcLuPvUk9tg4INJii5DwEFngVPqtpJSew1XE97AAGQY3CvQ07YtU/S8t0olZBC+u8TaGotv10z3HYKXsc3CPIUGANfS1uNxqgkFi0SEWzQuax7zw7P0ec6WFaPUVOb+ZjW3ibpYN1CxtsO9mVRBoUNi9Anke2S9kAtytP30OfaO6SPE3ZE5kOSyO1JUGzrvKDlAYpWm9F+7EbQzs3a5zTZK3ISKSiMFsO2isOkjKoXJRcNL4pkC0auR1plPaEORkYNYd9QPQy4Wtm1OOmQXFKkmMx5D2ZG4YaSZIzlTJ/V7ow03x4BHcxb8g0a0liZfIQ9zDia7MFyOt5dJoWdKrGk0009pGJwLlcKsnA7gLGMULdvOB3FnRP38N26X8O6sFQWH60QQVM/eYFne2csFt/AT4dgb/JfUC6kab/IbjUUb+qas/pWu9B3APdVrxIb3SDb0Q=='"
-alias src='cd ~/src'
-alias s='src'
-alias su='sudo su'
-alias sudo='sudo -E '
-alias wu='for if in wg0 wg1 wg2;do sudo wg-quick up $if;done'
-alias wd='for if in wg0 wg1 wg2;do sudo wg-quick down $if;done'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
+alias-abbr less='less -R'
+alias pubkey="echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIZVSTqFyDav/xSXBBNGzN2bbbu41j4qw/rqwDTRuTxRdrxtkHdxBgtYjPgxUdpSDXg7zfwqme+VEsoz+12TNbxkuMaZWZeo+K90b3RR1Uqfb22kO4Dg7o98dJymIprn8Qn5xKoSuOJSxkVEqutgJLpVG3E7eaq5QXH4DUmjdvIxP8N+khkCldkSO3eitUOqwUhZG87H/bqtA3xBf5j2K0jF0SzfndTZnFRVZdPvJcLuPvUk9tg4INJii5DwEFngVPqtpJSew1XE97AAGQY3CvQ07YtU/S8t0olZBC+u8TaGotv10z3HYKXsc3CPIUGANfS1uNxqgkFi0SEWzQuax7zw7P0ec6WFaPUVOb+ZjW3ibpYN1CxtsO9mVRBoUNi9Anke2S9kAtytP30OfaO6SPE3ZE5kOSyO1JUGzrvKDlAYpWm9F+7EbQzs3a5zTZK3ISKSiMFsO2isOkjKoXJRcNL4pkC0auR1plPaEORkYNYd9QPQy4Wtm1OOmQXFKkmMx5D2ZG4YaSZIzlTJ/V7ow03x4BHcxb8g0a0liZfIQ9zDia7MFyOt5dJoWdKrGk0009pGJwLlcKsnA7gLGMULdvOB3FnRP38N26X8O6sFQWH60QQVM/eYFne2csFt/AT4dgb/JfUC6kab/IbjUUb+qas/pWu9B3APdVrxIb3SDb0Q==';echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5vMjSIuVkudNEou6wF3sXO8eyekZSdkj4mJdSpXlTW5PBKzntBeIjwc45xihL4/31DS6b5/zgps7wTFuPBfa2R36iVfuKcjj5yj2unjt459HAupP8AMXxpDkK3Z9/CkhC5CBHB0BI7GYBh8WJ6rAA97xG8oz1JRWe2U+8zfpe6L4B5XboeEV5plyAxKcdTBoUrj5X0ibMiL84qZXRFhk1r18Df4kxa7ICayhDqW2vZZBGHNgsyAPHZEILMwl/xEg8RYY/rmbH9tBZDWe9reDrREV+UupBZagtHMw0vwrJpj9RZtHFZWYIBlGm+5G74B/6lnMqhp9TnSZGXHYLkMhpAwXoeTioL6PvmCNEBypblFv5rukapgPLwC+lbs/iXot5kZOMIs26E1nA1w18G6jkJq+vB3eKrRrNt8W0C6l35Jgb+Orb7JxTzSTJMQCxOtW0BhrUFg/p/wIwdj3dFIwUGpROzYHV/byQd3rHw8mXcDgAgLtep0jGyRidbyg1N3c= mkashi@MKs-ThinkCentre'"
+alias-abbr s='cd ~/src'
+alias-abbr su='sudo su'
+alias-abbr sudo='sudo -E '
+alias-abbr wu='for if in wg0 wg1 wg2;do sudo wg-quick up $if;done'
+alias-abbr wd='for if in wg0 wg1 wg2;do sudo wg-quick down $if;done'
+alias-abbr ..='cd ..'
+alias-abbr ...='cd ../..'
+alias-abbr ....='cd ../../..'
+alias-abbr .....='cd ../../../..'
 alias -s {txt,log,out}=emacs
 alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pptx,PPTX,pdf,PDF,zip,ZIP,tar,TAR,gz,GZ}=open
 alias -s {html,HTML}=elinks
@@ -63,7 +69,7 @@ function set-title() {
     fi
     # Set terminal window name
     echo -en "\033]2; "${hostname_f+${hostname_f}:}$(pwd | sed -e 's#'$HOME'#~#')" \007"
-    # Set teminal tab name
+    # Set terminal tab name
     echo -en "\033]1; "${hostname_s+${hostname_s}:}$(pwd | sed -e 's#'$HOME'#~#' -e 's#.*/##' -e 's#^$#/#')" \007"
 }
 set-title
