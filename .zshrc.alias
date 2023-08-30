@@ -9,9 +9,9 @@ if [[ $(uname) == Darwin ]];then
     alias top='htop'
     if [[ ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
 	alias ls='ls -FG'
-    else
-	alias ls='ls --color=auto'
     fi
+else
+    alias ls='ls --color=auto'
 fi
 alias-abbr la='ls -la'
 alias-abbr ll='ls -l'
