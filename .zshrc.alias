@@ -5,10 +5,13 @@ if [[ $functions[abbr] ]];then
 else
     alias alias-abbr='alias'
 fi
-if [[ $(uname) == Darwin && ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
-    alias ls='ls -FG'
-else
-    alias ls='ls --color=auto'
+if [[ $(uname) == Darwin ]];then
+    alias top='htop'
+    if [[ ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
+	alias ls='ls -FG'
+    else
+	alias ls='ls --color=auto'
+    fi
 fi
 alias-abbr la='ls -la'
 alias-abbr ll='ls -l'
