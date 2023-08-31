@@ -7,7 +7,7 @@ else
 fi
 alias ls='ls --color=auto'
 if [[ $(uname) == Darwin ]];then
-    alias top='htop'
+    [[ $commands[htop] ]] && alias top='htop'
     if [[ ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
 	alias ls='ls -FG'
     fi
