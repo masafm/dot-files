@@ -55,6 +55,7 @@ alias-abbr h='cd ~'
 alias-abbr his='history -t "%F %T"'
 alias jq='jq -C'
 if [[ $commands[microk8s] ]];then
+    alias kubectl='microk8s.kubectl'
     alias-abbr kube='microk8s.kubectl'
     alias-abbr helm='microk8s.helm'
 else
