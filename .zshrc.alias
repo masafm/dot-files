@@ -5,20 +5,19 @@ if [[ $functions[abbr] ]];then
 else
     alias alias-abbr='alias'
 fi
+alias ls='ls --color=auto'
 if [[ $(uname) == Darwin ]];then
     alias top='htop'
     if [[ ! -x ${HOMEBREW_PREFIX}/bin/gls ]];then
 	alias ls='ls -FG'
     fi
-else
-    alias ls='ls --color=auto'
 fi
 alias-abbr la='ls -la'
 alias-abbr ll='ls -l'
 alias-abbr lh='ls -lh'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
-alias-abbr gtg='gtags --gtagslabel=pygments -v'
+alias gtags='gtags --gtagslabel=pygments -v'
 alias emacs='emacs -nw'
 alias-abbr dfi="cd ${root_dir}"
 alias-abbr .z="emacs ${root_dir}/.zshrc && exec zsh"
