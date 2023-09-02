@@ -56,6 +56,7 @@ alias jq='jq -C'
 if [[ $commands[microk8s] ]];then
     alias kubectl='microk8s.kubectl'
     alias-abbr kube='microk8s.kubectl'
+    alias helm='microk8s.helm'
     alias-abbr helm='microk8s.helm'
 else
     alias-abbr kube='kubectl'
