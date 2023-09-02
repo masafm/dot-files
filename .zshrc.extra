@@ -48,7 +48,7 @@ PATH_ALIASES=(
     PATH_ALIASES+='~/src/'$(basename $d)'/=~s:'$(basename $d)
 done
 function powerline_precmd() {
-    PS1="$($POWERLINE_PATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -colorize-hostname -modules ${MODULES}cwd,venv,perms,aws,jobs,exit,terraform-workspace,docker,git,goenv -path-aliases ${(pj:,:)PATH_ALIASES})"
+    PS1="$($POWERLINE_PATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -colorize-hostname -modules ${MODULES}cwd,venv,perms,aws,jobs,terraform-workspace,docker,git,goenv,exit -path-aliases ${(pj:,:)PATH_ALIASES})"
 }
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
