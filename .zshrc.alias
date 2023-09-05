@@ -59,6 +59,7 @@ if [[ $commands[microk8s] ]];then
 fi
 alias-abbr k='kubectl'
 alias-abbr ka='kubectl apply -f'
+alias-abbr ke='kubectl exec -it'
 alias-abbr kgd='kubectl get deployments'
 alias-abbr kgp='kubectl get pods'
 alias-abbr kgn='kubectl get nodes'
