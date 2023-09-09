@@ -220,6 +220,31 @@ function awssh() {
     fi
 }
 
+function azure-tunnel() {
+    if [[ -z $1 ]];then
+	echo "Please specify resource id"
+	return 1
+    fi
+    if [[ -z $2 ]];then
+	echo "Please specify port number"
+	return 1
+    fi
+    if [[ -z $3 ]];then
+	echo "Please specify local port number"
+	return 1
+    fi
+    out=/tmp/$$.$(date +%s)
+    az network bastion tunnel --name "masafumi-kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port $2 --port $3 >$out 2>&1 &
+    while true;do
+	if [[ -n $(grep "Tunnel is ready" $out) ]];then
+	    break
+	fi
+	sleep 0.1
+    done
+    cat $out
+    rm -f $out
+}
+
 function azssh() {
     if [[ -z $1 ]];then
 	echo "Please specify resource id"
@@ -231,15 +256,10 @@ function azssh() {
 	user=$2
     fi
     local_port=$(($RANDOM % 10000 + 50000))
-    az network bastion tunnel --name "masafumi.kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port 22 --port $local_port & pid=$!
-    sleep 3
+    azure-tunnel "$1" 22 $local_port
     ssh -l ${user} -p ${local_port} -o StrictHostKeyChecking=no localhost
-    if [[ -n $pid ]];then
-	echo "Killing tunnel($pid)"
-	# Child process will remain by kill command
-	#kill $pid
-	pkill -f "$1.*--resource-port 22 --port $local_port"
-    fi
+    echo "Killing tunnel"
+    pkill -f "$1.*--resource-port 22 --port $local_port"
 }
 
 function gssh() {
