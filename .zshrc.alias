@@ -70,8 +70,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5vMjSIuVkudNEou6wF3sXO8eyekZSdkj4mJdSpXlT
 alias-abbr s='cd ~/src'
 alias su='sudo su'
 alias sudo='sudo -E '
-alias-abbr wu='for if in wg0 wg1 wg2;do sudo wg-quick up $if;done'
-alias-abbr wd='for if in wg0 wg1 wg2;do sudo wg-quick down $if;done'
+alias-abbr wu='for if in wg0 wg1 wg2 wg3;do sudo wg-quick up $if;done'
+alias-abbr wd='for if in wg0 wg1 wg2 wg3;do sudo wg-quick down $if;done'
 alias-abbr ..='cd ..'
 alias-abbr ...='cd ../..'
 alias-abbr ....='cd ../../..'
@@ -116,7 +116,7 @@ function expand-or-complete-or-list-files() {
     fi
 }
 
-function run_sshd() {
+function run-sshd() {
     if [[ $(hostname) == COMP-P7VR73TR7F && -x ${HOMEBREW_PREFIX}/sbin/sshd && -z $(pgrep sshd) ]];then
 	${HOMEBREW_PREFIX}/sbin/sshd
 	sleep 1
@@ -124,7 +124,7 @@ function run_sshd() {
 }
 
 function ssh() {
-    #run_sshd
+    #run-sshd
     if [[ $(uname) == Darwin && -x ${HOMEBREW_PREFIX}/bin/ssh ]];then
 	cmd=${HOMEBREW_PREFIX}/bin/ssh
     else
@@ -140,8 +140,40 @@ function ssh() {
 }
 for h in $(awk '/^[^#]/{print $2}' </etc/hosts | tail -n+4);do alias $h="ssh $h";done
 
-function ec2() {
+function _my_public_ip() {
+    curl https://checkip.amazonaws.com 2>/dev/null
+}
+
+function _azvm() {
     if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    cmd=$1
+    shift
+    instance=${1/az/masafumi-kashiwagi}
+    shift
+    az vm $cmd --resource-group masafumi-kashiwagi --name $instance $*
+}
+
+function az-vm-start() {
+    _azvm start $*
+}
+
+function az-vm-stop() {
+    _azvm stop $*
+}
+
+function az-vm-status() {
+    _azvm get-instance-view $* --query 'instanceView.statuses[1]' --output table
+}
+
+function _ec2() {
+    if [ -z "$1" ];then
+	echo "Please specify command"
+	return 1
+    fi
+    if [ -z "$2" ];then
 	echo "Please specify hostname"
 	return 1
     fi
@@ -153,34 +185,34 @@ function ec2() {
     aws ec2 $cmd --instance-ids $instance_id $*
 }
 
-function ec2-start() {
-    ec2 start-instances $*
+function aws-sg-add-ip() {
+    my_ip=$(_my_public_ip)
+    date=$(date +%Y/%m/%d)
+    aws ec2 authorize-security-group-ingress --group-id sg-02699fb13ef1d57f5 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]"
+    #aws ec2 authorize-security-group-ingress --group-id sg-0d82f9d810c8f5628 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]" --region us-east-1
 }
 
-function ec2-stop() {
-    ec2 stop-instances $*
+alias ec2-start=aws-ec2-start
+function aws-ec2-start() {
+    _ec2 start-instances $*
 }
 
-function ec2-status() {
-    ec2 describe-instance-status $*
+alias ec2-stop=aws-ec2-stop
+function aws-ec2-stop() {
+    _ec2 stop-instances $*
+}
+
+alias ec2-status=aws-ec2-status
+function aws-ec2-status() {
+    _ec2 describe-instance-status $*
 }
 
 function aws-private-ip() {
-    if [ -z "$*" ];then
-	echo "Please specify hostname"
-	return 1
-    fi
-    instance=${1/aws/masafumi-kashiwagi}
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
+    _ec2 describe-instances $* --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
 }
 
 function aws-public-ip() {
-    if [ -z "$*" ];then
-	echo "Please specify hostname"
-	return 1
-    fi
-    instance=${1/aws/masafumi-kashiwagi}
-    aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
+    _ec2 describe-instances $* --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
 }
 
 function awssh() {
@@ -217,6 +249,31 @@ function awssh() {
     fi
 }
 
+function azure-tunnel() {
+    if [[ -z $1 ]];then
+	echo "Please specify resource id"
+	return 1
+    fi
+    if [[ -z $2 ]];then
+	echo "Please specify port number"
+	return 1
+    fi
+    if [[ -z $3 ]];then
+	echo "Please specify local port number"
+	return 1
+    fi
+    out=/tmp/$$.$(date +%s)
+    az network bastion tunnel --name "masafumi-kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port $2 --port $3 >$out 2>&1 &
+    while true;do
+	if [[ -n $(grep "Tunnel is ready" $out) ]];then
+	    break
+	fi
+	sleep 0.1
+    done
+    cat $out
+    rm -f $out
+}
+
 function azssh() {
     if [[ -z $1 ]];then
 	echo "Please specify resource id"
@@ -228,15 +285,10 @@ function azssh() {
 	user=$2
     fi
     local_port=$(($RANDOM % 10000 + 50000))
-    az network bastion tunnel --name "masafumi.kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port 22 --port $local_port & pid=$!
-    sleep 3
+    azure-tunnel "$1" 22 $local_port
     ssh -l ${user} -p ${local_port} -o StrictHostKeyChecking=no localhost
-    if [[ -n $pid ]];then
-	echo "Killing tunnel($pid)"
-	# Child process will remain by kill command
-	#kill $pid
-	pkill -f "$1.*--resource-port 22 --port $local_port"
-    fi
+    echo "Killing tunnel"
+    pkill -f "$1.*--resource-port 22 --port $local_port"
 }
 
 function gssh() {
