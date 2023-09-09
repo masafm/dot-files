@@ -160,7 +160,7 @@ function aws-sg-add-ip() {
     my_ip=$(_my_public_ip)
     date=$(date +%Y/%m/%d)
     aws ec2 authorize-security-group-ingress --group-id sg-02699fb13ef1d57f5 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]"
-    aws ec2 authorize-security-group-ingress --group-id sg-0d82f9d810c8f5628 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]" --region us-east-1
+    #aws ec2 authorize-security-group-ingress --group-id sg-0d82f9d810c8f5628 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]" --region us-east-1
 }
 
 alias ec2-start=aws-ec2-start
