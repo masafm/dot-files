@@ -115,7 +115,7 @@ function expand-or-complete-or-list-files() {
     fi
 }
 
-function run_sshd() {
+function run-sshd() {
     if [[ $(hostname) == COMP-P7VR73TR7F && -x ${HOMEBREW_PREFIX}/sbin/sshd && -z $(pgrep sshd) ]];then
 	${HOMEBREW_PREFIX}/sbin/sshd
 	sleep 1
@@ -123,7 +123,7 @@ function run_sshd() {
 }
 
 function ssh() {
-    #run_sshd
+    #run-sshd
     if [[ $(uname) == Darwin && -x ${HOMEBREW_PREFIX}/bin/ssh ]];then
 	cmd=${HOMEBREW_PREFIX}/bin/ssh
     else
@@ -143,8 +143,36 @@ function _my_public_ip() {
     curl https://checkip.amazonaws.com 2>/dev/null
 }
 
-function _ec2() {
+function _azvm() {
     if [ -z "$*" ];then
+	echo "Please specify hostname"
+	return 1
+    fi
+    cmd=$1
+    shift
+    instance=${1/az/masafumi-kashiwagi}
+    shift
+    az vm $cmd --resource-group masafumi-kashiwagi --name $instance $*
+}
+
+function az-vm-start() {
+    _azvm start $*
+}
+
+function az-vm-stop() {
+    _azvm stop $*
+}
+
+function az-vm-status() {
+    _azvm get-instance-view $* --query 'instanceView.statuses[1]' --output table
+}
+
+function _ec2() {
+    if [ -z "$1" ];then
+	echo "Please specify command"
+	return 1
+    fi
+    if [ -z "$2" ];then
 	echo "Please specify hostname"
 	return 1
     fi
