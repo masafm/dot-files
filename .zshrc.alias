@@ -69,8 +69,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5vMjSIuVkudNEou6wF3sXO8eyekZSdkj4mJdSpXlT
 alias-abbr s='cd ~/src'
 alias su='sudo su'
 alias sudo='sudo -E '
-alias-abbr wu='for if in wg0 wg1 wg2 wg3;do sudo wg-quick up $if;done'
-alias-abbr wd='for if in wg0 wg1 wg2 wg3;do sudo wg-quick down $if;done'
+alias-abbr wu="for if in $(cd /opt/homebrew/etc/wireguard/>/dev/null && ls *.conf | sed -z -e 's/\.conf\s*/ /g' -e 's/\n//g');do sudo wg-quick up \$if;done"
+alias-abbr wd="for if in $(cd /opt/homebrew/etc/wireguard/>/dev/null && ls *.conf | sed -z -e 's/\.conf\s*/ /g' -e 's/\n//g');do sudo wg-quick down \$if;done"
 alias-abbr ..='cd ..'
 alias-abbr ...='cd ../..'
 alias-abbr ....='cd ../../..'
