@@ -21,6 +21,7 @@ fi
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 [[ $commands[microk8s.kubectl] ]] && source <(sudo microk8s.kubectl completion zsh | sed "s/kubectl/microk8s.kubectl/g")
 [[ $commands[aws_completer] ]] && complete -C aws_completer aws
+[[ $commands[oc] ]] && source <(oc completion zsh)
 [[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]] && export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"
 [[ -f ${HOMEBREW_PREFIX}/bin/nodebrew ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
 [[ -f ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
