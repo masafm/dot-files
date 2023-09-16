@@ -8,4 +8,4 @@ source ${root_dir}/.zshrc.base
 source ${root_dir}/.zshrc.alias
 source ${root_dir}/.zshrc.shell
 source ${root_dir}/.zshrc.extra
-[[ $(hostname) == COMP-P7VR73TR7F ]] && source ~/src/masa-tools/profile-dd.sh;true
+[[ -f ~/src/masa-tools/profile-dd.sh ]] && source ~/src/masa-tools/profile-dd.sh;true
