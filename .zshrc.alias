@@ -185,11 +185,15 @@ function _ec2() {
     aws ec2 $cmd --instance-ids $instance_id $*
 }
 
-function aws-sg-add-ip() {
+function wg-add-ip() {
+    if [[ -z $1 ]];then
+       echo "Please specify name"
+       return 1
+    fi
     my_ip=$(_my_public_ip)
-    date=$(date +%Y/%m/%d)
-    aws ec2 authorize-security-group-ingress --group-id sg-02699fb13ef1d57f5 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]"
-    #aws ec2 authorize-security-group-ingress --group-id sg-0d82f9d810c8f5628 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $*'}]" --region us-east-1
+    date=$(date +%Y%m%d)
+    aws ec2 authorize-security-group-ingress --group-id sg-02699fb13ef1d57f5 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $1'}]"
+    gcloud compute firewall-rules create masafumi-kashiwagi-vpc2-allow-wg-${date}-$1 --action=ALLOW --direction=INGRESS --network=masafumi-kashiwagi-vpc2 --priority=1000 --rules=udp:61234 --source-ranges=${my_ip}/32 --target-tags=wg
 }
 
 alias ec2-start=aws-ec2-start
