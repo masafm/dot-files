@@ -193,7 +193,7 @@ function _ec2() {
     shift
     instance=${1/aws/masafumi-kashiwagi}
     shift
-    instance_id=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+    instance_id=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].InstanceId' --output text $*)
     aws ec2 $cmd --instance-ids $instance_id $*
 }
 
