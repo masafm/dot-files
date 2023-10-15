@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+export ABBR_TMPDIR="${TMPDIR:-/tmp}${USER:+/${USER}}/zsh-abbr/"
 [[ -f ${HOMEBREW_PREFIX}/share/zsh-abbr/zsh-abbr.zsh ]] && source ${HOMEBREW_PREFIX}/share/zsh-abbr/zsh-abbr.zsh
 if [[ $functions[abbr] ]];then
     alias alias-abbr='abbr -S -q'
