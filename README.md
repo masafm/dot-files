@@ -19,7 +19,9 @@ ln -s /usr/local/dot-files/.emacs ~/
 ln -s /usr/local/dot-files/.colorrc ~/
 ln -s /usr/local/dot-files/.screenrc ~/
 chsh -s /usr/bin/zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # exit and login again
 sudo env GOPATH=/opt/powerline-go go install github.com/justjanne/powerline-go@latest
 git clone git@github.com:powerline/fonts.git && cd fonts && ./install.sh && cd - && rm -rf ./fonts
+brew install olets/tap/zsh-abbr
 ```
