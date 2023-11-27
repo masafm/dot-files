@@ -80,6 +80,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIZVSTqFyDav/xSXBBNGzN2bbbu41j4qw/rqwDTRuT
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5vMjSIuVkudNEou6wF3sXO8eyekZSdkj4mJdSpXlTW5PBKzntBeIjwc45xihL4/31DS6b5/zgps7wTFuPBfa2R36iVfuKcjj5yj2unjt459HAupP8AMXxpDkK3Z9/CkhC5CBHB0BI7GYBh8WJ6rAA97xG8oz1JRWe2U+8zfpe6L4B5XboeEV5plyAxKcdTBoUrj5X0ibMiL84qZXRFhk1r18Df4kxa7ICayhDqW2vZZBGHNgsyAPHZEILMwl/xEg8RYY/rmbH9tBZDWe9reDrREV+UupBZagtHMw0vwrJpj9RZtHFZWYIBlGm+5G74B/6lnMqhp9TnSZGXHYLkMhpAwXoeTioL6PvmCNEBypblFv5rukapgPLwC+lbs/iXot5kZOMIs26E1nA1w18G6jkJq+vB3eKrRrNt8W0C6l35Jgb+Orb7JxTzSTJMQCxOtW0BhrUFg/p/wIwdj3dFIwUGpROzYHV/byQd3rHw8mXcDgAgLtep0jGyRidbyg1N3c= mkashi@MKs-ThinkCentre
 EOF
 )"
+alias-abbr hv='helm search repo datadog --versions'
 alias pubkey="echo \"$pubkey\""
 alias-abbr s='cd ~/src'
 alias su='sudo su'
