@@ -5,6 +5,7 @@ if [[ $(uname) != Darwin ]];then
     export XAUTHORITY=$HOME/.Xauthority
 fi
 
+[[ -d ${HOMEBREW_PREFIX}/opt/ruby/bin ]] && export PATH=${HOMEBREW_PREFIX}/opt/ruby/bin:$PATH
 [[ -d ~/sdk ]] && for d in ~/sdk/go*;do export GOROOT=$d;done
 export PATH=${GOROOT+${GOROOT}/bin:}$PATH
 if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/powerline-go ]]; then
