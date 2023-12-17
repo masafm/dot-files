@@ -20,9 +20,9 @@ fi
 [[ $commands[dircolors] && -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
 [[ $commands[pyenv] ]] && eval "$(pyenv init --path)" && eval "$(pyenv init -)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
-[[ $commands[microk8s.kubectl] ]] && source <(microk8s.kubectl completion zsh | sed "s/kubectl/microk8s.kubectl/g")
+[[ $commands[microk8s.kubectl] ]] && source <(timeout 3 microk8s.kubectl completion zsh | sed "s/kubectl/microk8s.kubectl/g")
 [[ $commands[helm] ]] && source <(helm completion zsh)
-[[ $commands[microk8s.helm] ]] && source <(microk8s.helm completion zsh | sed "s/helm/microk8s.helm/g")
+[[ $commands[microk8s.helm] ]] && source <(timeout 3 microk8s.helm completion zsh | sed "s/helm/microk8s.helm/g")
 [[ $commands[aws_completer] ]] && complete -C aws_completer aws
 [[ $commands[oc] ]] && source <(oc completion zsh)
 [[ -d ${HOMEBREW_PREFIX}/opt/openjdk/bin ]] && export PATH="${HOMEBREW_PREFIX}/opt/openjdk/bin:$PATH"
