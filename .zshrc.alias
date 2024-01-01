@@ -96,7 +96,7 @@ alias -s {png,PNG,jpg,JPG,bmp,BMP,xls,XLS,xlsx,XLSX,doc,DOC,docx,DOCX,ppt,PPT,pp
 alias -s {html,HTML}=elinks
 
 function set-title() {
-    if [[ $(uname) != Darwin ]];then
+    if [[ -n ${SSH_CONNECTION} ]];then
 	hostname_s=$(hostname)
 	hostname_f=$USER@$hostname_s
     fi

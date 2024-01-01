@@ -8,4 +8,3 @@ export PATH=/usr/local/bin:$PATH:~/bin
 	export MANPATH=${HOMEBREW_PREFIX}/opt/${gnu}/libexec/gnuman:${MANPATH}
     fi
 done
-[[ -n ${SSH_CONNECTION} ]] && echo -en "\033]2;$(hostname)\007"
