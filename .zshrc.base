@@ -2,9 +2,11 @@
 export PATH=/usr/local/bin:$PATH:~/bin
 [[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-[[ $(uname) == Darwin ]] && for gnu in coreutils ed findutils gawk gnu-sed gnu-tar grep ed findutils gawk gnu-sed gnu-tar grep;do
+[[ $(uname) == Darwin ]] && for gnu in coreutils ed findutils gawk gnu-sed gnu-tar grep;do
     if [[ -d ${HOMEBREW_PREFIX}/opt/${gnu}/libexec ]];then
 	export PATH=${HOMEBREW_PREFIX}/opt/${gnu}/libexec/gnubin:${PATH}
 	export MANPATH=${HOMEBREW_PREFIX}/opt/${gnu}/libexec/gnuman:${MANPATH}
+    else
+	echo "Please run: brew install ${gnu}"
     fi
 done
