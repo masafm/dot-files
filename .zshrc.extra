@@ -7,14 +7,8 @@ fi
 
 [[ -d ${HOMEBREW_PREFIX}/opt/ruby/bin ]] && export PATH=${HOMEBREW_PREFIX}/opt/ruby/bin:$PATH
 [[ -d ~/sdk ]] && for d in ~/sdk/go*;do export GOROOT=$d;done
-export PATH=${GOROOT+${GOROOT}/bin:}$PATH
-if [[ -n ${HOMEBREW_PREFIX} && -x ${HOMEBREW_PREFIX}/bin/powerline-go ]]; then
-    POWERLINE_PATH=${HOMEBREW_PREFIX}
-else
-    POWERLINE_PATH=/opt/powerline-go
-    export PATH=$POWERLINE_PATH/bin:$PATH
-fi
-
+[[ -n ${GOROOT} ]] && export PATH=${GOROOT+${GOROOT}/bin:}$PATH
+[[ -e /opt/powerline-go/bin/powerline-go ]] && export POWERLINE_GO=/opt/powerline-go/bin/powerline-go
 [[ -d /opt/gradle/gradle-8.5/bin ]] && export PATH=/opt/gradle/gradle-8.5/bin:$PATH
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
@@ -53,7 +47,7 @@ PATH_ALIASES=(
     PATH_ALIASES+='~/src/'$(basename $d)'/=~s:'$(basename $d)
 done
 function powerline_precmd() {
-    PS1="$($POWERLINE_PATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0} -colorize-hostname -modules ${MODULES}cwd,venv,perms,aws,jobs,terraform-workspace,docker,git,goenv,exit -path-aliases ${(pj:,:)PATH_ALIASES})"
+    PS1="$(${POWERLINE_GO} -error $? -jobs ${${(%):%j}:-0} -colorize-hostname -modules ${MODULES}cwd,venv,perms,aws,jobs,terraform-workspace,docker,git,goenv,exit -path-aliases ${(pj:,:)PATH_ALIASES})"
 }
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
@@ -63,6 +57,6 @@ function install_powerline_precmd() {
   done
   precmd_functions+=(powerline_precmd)
 }
-if [[ "$TERM" != "linux" && -f "$POWERLINE_PATH/bin/powerline-go" ]]; then
+if [[ "$TERM" != "linux" && -f "${POWERLINE_GO}" ]]; then
     install_powerline_precmd
 fi
