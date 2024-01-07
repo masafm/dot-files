@@ -1,0 +1,4 @@
+#!/bin/sh
+[ -f $HOME/.Xresources ] && xrdb $HOME/.Xresources
+unset SESSION_MANAGER
+exec /etc/X11/xinit/xinitrc
