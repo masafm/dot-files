@@ -80,3 +80,6 @@
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
+
+;; オートインデントでスペースを使う
+(setq-default indent-tabs-mode nil)
