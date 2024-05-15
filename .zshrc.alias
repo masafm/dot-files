@@ -201,9 +201,12 @@ function _ec2() {
     fi
     cmd=$1
     shift
-    instance=${1/aws/masafumi-kashiwagi}
+    instance=$1
+    instance=${instance/aws/masafumi-kashiwagi}
     shift
-    instance_id=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].InstanceId' --output text $*)
+    instance_id=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=$instance" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+    #echo "instance: ${instance}"
+    #echo "instance_id: ${instance_id}"
     aws ec2 $cmd --instance-ids $instance_id $*
 }
 
@@ -244,35 +247,33 @@ function aws-public-ip() {
 
 function awssh() {
     if [ -z "$*" ];then
-	echo "Please specify hostname"
-	return 1
+	    echo "Please specify hostname"
+	    return 1
     fi
     input_array=(${(s:@:)1})
     if [[ ${#input_array[*]} > 1 ]];then
-	user=${input_array[1]}
-	instance=${input_array[2]}
+	    user=${input_array[1]}
+	    instance=${input_array[2]}
     else
-	instance=${input_array[1]}
+	    instance=${input_array[1]}
     fi
     instance=${instance/aws/masafumi-kashiwagi}
     public_ip=$(aws-public-ip "$instance")
     shift
-    if [[ -n $public_ip ]];then
-	echo "Accessing to public IP ${public_ip}"
-	ssh ${user+${user}@}${public_ip} $*
-    else
 	private_ip=$(aws-private-ip "$instance")
 	if [[ -n $private_ip ]];then
-	    echo "Public IP not found for ${instance}.\nAccessing to private IP ${private_ip}."
-	    ssh ${user+${user}@}${private_ip} $*
+	    echo "Accessing to private IP ${private_ip}."
+	    ssh -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${user+${user}@}${private_ip} $*
 	    if [[ $? != 0 ]];then
-		proxy=$(aws-public-ip aws-ubuntu)
-		echo "Public IP not found for ${instance}.\nAccessing via ${proxy}."
-		ssh ${user+${user}@}${private_ip} $* -o ProxyCommand="ssh ${proxy} -W %h:%p"
+		    proxy=$(aws-public-ip aws-ubuntu)
+		    echo "Public IP not found for ${instance}.\nAccessing via ${proxy}."
+		    ssh -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${user+${user}@}${private_ip} $* -o ProxyCommand="ssh ${proxy} -W %h:%p"
 	    fi
+    elif [[ -n $public_ip ]];then
+	    echo "Accessing to public IP ${public_ip}"
+	    ssh -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${user+${user}@}${public_ip} $*
 	else
 	    echo "No IP found for ${instance}"
-	fi
     fi
 }
 
