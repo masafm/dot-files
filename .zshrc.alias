@@ -218,8 +218,8 @@ function wg-add-ip() {
     my_ip=$(_my_public_ip)
     date=$(date +%Y%m%d)
     aws ec2 authorize-security-group-ingress --group-id sg-02699fb13ef1d57f5 --ip-permissions IpProtocol=udp,FromPort=61234,ToPort=61234,IpRanges="[{CidrIp=${my_ip}/32,Description='${date} $1'}]"
-    gcloud compute firewall-rules create masafumi-kashiwagi-vpc2-allow-wg-${date}-$1 --action=ALLOW --direction=INGRESS --network=masafumi-kashiwagi-vpc2 --priority=1000 --rules=udp:61234 --source-ranges=${my_ip}/32 --target-tags=wg
-    az network firewall policy rule-collection-group collection rule add --collection-name default-nat --name wg-${date}-$1 --policy-name masafumi-kashiwagi --rcg-name DefaultDnatRuleCollectionGroup --resource-group masafumi-kashiwagi --rule-type NatRule --ip-protocols udp --dest-addr ${AZURE_FIREWALL_PIP} --destination-ports 61234 --source-addresses ${my_ip} --translated-address 192.168.30.4 --translated-port 61234
+    #gcloud compute firewall-rules create masafumi-kashiwagi-vpc2-allow-wg-${date}-$1 --action=ALLOW --direction=INGRESS --network=masafumi-kashiwagi-vpc2 --priority=1000 --rules=udp:61234 --source-ranges=${my_ip}/32 --target-tags=wg
+    #az network firewall policy rule-collection-group collection rule add --collection-name default-nat --name wg-${date}-$1 --policy-name masafumi-kashiwagi --rcg-name DefaultDnatRuleCollectionGroup --resource-group masafumi-kashiwagi --rule-type NatRule --ip-protocols udp --dest-addr ${AZURE_FIREWALL_PIP} --destination-ports 61234 --source-addresses ${my_ip} --translated-address 192.168.30.4 --translated-port 61234
 }
 
 alias ec2-start=aws-ec2-start
@@ -291,7 +291,7 @@ function azure-tunnel() {
 	return 1
     fi
     out=/tmp/$$.$(date +%s)
-    az network bastion tunnel --name "masafumi-kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port $2 --port $3 >$out 2>&1 &
+    az network bastion tunnel --name "masafumi-kashiwagi" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port $2 --port $3 >$out 2>&1 &
     while true;do
 	if [[ -n $(grep "Tunnel is ready" $out) ]];then
 	    break
