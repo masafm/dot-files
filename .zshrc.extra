@@ -12,6 +12,7 @@ fi
 [[ -d /opt/gradle/gradle-8.5/bin ]] && export PATH=/opt/gradle/gradle-8.5/bin:$PATH
 [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+[[ $commands[fzf] ]] && source <(fzf --zsh)
 [[ $commands[dircolors] && -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
 [[ $commands[pyenv] ]] && eval "$(pyenv init --path)" && eval "$(pyenv init -)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
