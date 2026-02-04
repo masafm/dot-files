@@ -291,7 +291,7 @@ function azure-tunnel() {
 	return 1
     fi
     out=/tmp/$$.$(date +%s)
-    az network bastion tunnel --name "masafumi-kashiwagi" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port $2 --port $3 >$out 2>&1 &
+    az network bastion tunnel --name "masafumi-kashiwagi-bastion" --resource-group "masafumi-kashiwagi" --target-resource-id "$1" --resource-port $2 --port $3 >$out 2>&1 &
     while true;do
 	if [[ -n $(grep "Tunnel is ready" $out) ]];then
 	    break
