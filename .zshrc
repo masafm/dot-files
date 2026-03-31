@@ -19,5 +19,8 @@ alias pip="scfw run pip"
 alias poetry="scfw run poetry"
 export SCFW_DD_AGENT_LOG_PORT="10365"
 export SCFW_DD_LOG_LEVEL="ALLOW"
-export SCFW_HOME="/Users/mkashi/.scfw"
+export SCFW_HOME="/Users/masafumi.kashiwagi/.scfw"
 # END SCFW MANAGED BLOCK
+
+# Created by `pipx` on 2026-02-06 01:38:08
+export PATH="$PATH:/Users/masafumi.kashiwagi/.local/bin"
